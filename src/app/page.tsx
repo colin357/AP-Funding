@@ -1,43 +1,48 @@
+"use client";
+
+import { useState } from "react";
 import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
+  const [chatOpen, setChatOpen] = useState(false);
+
+  const openChat = () => setChatOpen(true);
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground grid-pattern">
       {/* Ambient glow effects */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-600/10 blur-3xl animate-glow" />
-        <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-purple-600/8 blur-3xl animate-glow" />
-        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-blue-400/6 blur-3xl animate-glow" />
+        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-500/8 blur-3xl animate-glow" />
+        <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-indigo-500/6 blur-3xl animate-glow" />
+        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-blue-400/5 blur-3xl animate-glow" />
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-10 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+      <nav className="relative z-10 border-b border-border/50 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700">
-              <span className="text-base font-bold text-white">AP</span>
-            </div>
-            <span className="text-lg font-semibold tracking-tight text-white">
-              AP Funding
-            </span>
-          </div>
+          <span className="text-xl font-bold tracking-tight text-gray-900">
+            Olivia Advances
+          </span>
           <div className="hidden items-center gap-8 md:flex">
-            <a href="#how-it-works" className="text-sm text-gray-400 transition-colors hover:text-white">
+            <a href="#how-it-works" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               How It Works
             </a>
-            <a href="#benefits" className="text-sm text-gray-400 transition-colors hover:text-white">
+            <a href="#benefits" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               Benefits
             </a>
-            <a href="#faq" className="text-sm text-gray-400 transition-colors hover:text-white">
+            <a href="#faq" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               FAQ
             </a>
+            <a href="tel:+13254686779" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
+              (325) 468-6779
+            </a>
           </div>
-          <a
-            href="#chat"
-            className="rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/25"
+          <button
+            onClick={openChat}
+            className="rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/25 cursor-pointer"
           >
             Get Your Estimate
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -45,58 +50,58 @@ export default function Home() {
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-20 pb-32 lg:pt-32 lg:pb-40">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/5 px-4 py-1.5 text-sm text-blue-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-              Fast Funding — As Quick As 24 Hours
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm text-blue-600">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+              Fast Cash Advances — As Quick As 24 Hours
             </div>
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Cash Advances for{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Car Accident
               </span>{" "}
               Cases
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-400">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
               Don&apos;t wait for your settlement. Get the money you need now —
               from $500 to $25,000. No credit checks, no monthly payments,
               and you only pay if you win.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#chat"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110"
+              <button
+                onClick={openChat}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
               >
                 See How Much You Qualify For
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+              </button>
               <a
-                href="tel:+1234567890"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border px-8 py-3.5 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+                href="tel:+13254686779"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 px-8 py-3.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                Call Us Now
+                Call Us: (325) 468-6779
               </a>
             </div>
 
             {/* Trust indicators */}
             <div className="mt-12 flex items-center gap-8">
               <div>
-                <div className="text-2xl font-bold text-white">$50M+</div>
-                <div className="text-xs text-gray-500">Funded to Clients</div>
+                <div className="text-2xl font-bold text-gray-900">$50M+</div>
+                <div className="text-xs text-gray-400">Advanced to Clients</div>
               </div>
-              <div className="h-8 w-px bg-border" />
+              <div className="h-8 w-px bg-gray-200" />
               <div>
-                <div className="text-2xl font-bold text-white">24hrs</div>
-                <div className="text-xs text-gray-500">Average Funding</div>
+                <div className="text-2xl font-bold text-gray-900">24hrs</div>
+                <div className="text-xs text-gray-400">Average Turnaround</div>
               </div>
-              <div className="h-8 w-px bg-border" />
+              <div className="h-8 w-px bg-gray-200" />
               <div>
-                <div className="text-2xl font-bold text-white">4.9★</div>
-                <div className="text-xs text-gray-500">Client Rating</div>
+                <div className="text-2xl font-bold text-gray-900">4.9/5</div>
+                <div className="text-xs text-gray-400">Client Rating</div>
               </div>
             </div>
           </div>
@@ -104,8 +109,8 @@ export default function Home() {
           {/* Hero visual — abstract card */}
           <div className="relative hidden lg:block">
             <div className="relative mx-auto w-full max-w-md">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/20 to-purple-600/20 blur-xl" />
-              <div className="relative rounded-3xl border border-border bg-surface/80 p-8 backdrop-blur-xl">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-100 to-indigo-100 blur-xl" />
+              <div className="relative rounded-3xl border border-gray-200 bg-white/90 p-8 backdrop-blur-xl shadow-lg">
                 <div className="mb-6 flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700">
                     <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,26 +118,26 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-400">Advance Amount</div>
-                    <div className="text-2xl font-bold text-white">$500 — $25,000</div>
+                    <div className="text-sm font-medium text-gray-400">Cash Advance Amount</div>
+                    <div className="text-2xl font-bold text-gray-900">$500 — $25,000</div>
                   </div>
                 </div>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between rounded-2xl bg-surface-light px-4 py-3">
-                    <span className="text-sm text-gray-400">Credit Check</span>
-                    <span className="text-sm font-semibold text-green-400">None Required</span>
+                  <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
+                    <span className="text-sm text-gray-500">Credit Check</span>
+                    <span className="text-sm font-semibold text-green-600">None Required</span>
                   </div>
-                  <div className="flex items-center justify-between rounded-2xl bg-surface-light px-4 py-3">
-                    <span className="text-sm text-gray-400">Monthly Payments</span>
-                    <span className="text-sm font-semibold text-green-400">$0</span>
+                  <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
+                    <span className="text-sm text-gray-500">Monthly Payments</span>
+                    <span className="text-sm font-semibold text-green-600">$0</span>
                   </div>
-                  <div className="flex items-center justify-between rounded-2xl bg-surface-light px-4 py-3">
-                    <span className="text-sm text-gray-400">If You Lose</span>
-                    <span className="text-sm font-semibold text-green-400">You Owe Nothing</span>
+                  <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
+                    <span className="text-sm text-gray-500">If You Lose</span>
+                    <span className="text-sm font-semibold text-green-600">You Owe Nothing</span>
                   </div>
-                  <div className="flex items-center justify-between rounded-2xl bg-surface-light px-4 py-3">
-                    <span className="text-sm text-gray-400">Funding Speed</span>
-                    <span className="text-sm font-semibold text-blue-400">Within 24 Hours</span>
+                  <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
+                    <span className="text-sm text-gray-500">Speed</span>
+                    <span className="text-sm font-semibold text-blue-600">Within 24 Hours</span>
                   </div>
                 </div>
               </div>
@@ -142,13 +147,13 @@ export default function Home() {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="relative z-10 border-t border-border/50 bg-surface/50 py-24">
+      <section id="how-it-works" className="relative z-10 border-t border-gray-100 bg-gray-50/50 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
               How It Works
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-gray-400">
+            <p className="mx-auto mt-4 max-w-2xl text-gray-500">
               Getting your cash advance is simple. Our streamlined process gets money in your hands fast.
             </p>
           </div>
@@ -158,7 +163,7 @@ export default function Home() {
                 step: "01",
                 title: "Chat with Olivia",
                 description:
-                  "Answer a few quick questions about your accident and injuries through our AI assistant. It takes less than 2 minutes.",
+                  "Answer a few quick questions about your accident and injuries through our assistant. It takes less than 2 minutes.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 ),
@@ -174,7 +179,7 @@ export default function Home() {
               },
               {
                 step: "03",
-                title: "Get Funded",
+                title: "Get Your Cash",
                 description:
                   "Once approved, receive your cash advance as fast as 24 hours. No credit checks, no monthly payments.",
                 icon: (
@@ -184,18 +189,18 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="group relative rounded-2xl border border-border bg-surface p-8 transition-all hover:border-blue-500/30 hover:bg-surface-light"
+                className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-blue-200 hover:shadow-md"
               >
                 <div className="absolute -top-3 left-6 rounded-full bg-blue-600 px-3 py-0.5 text-xs font-bold text-white">
                   {item.step}
                 </div>
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 transition-colors group-hover:bg-blue-500/20">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-100">
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {item.icon}
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-400">{item.description}</p>
+                <h3 className="text-lg font-semibold text-gray-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-500">{item.description}</p>
               </div>
             ))}
           </div>
@@ -206,10 +211,10 @@ export default function Home() {
       <section id="benefits" className="relative z-10 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl">
-              Why Choose AP Funding
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+              Why Choose Olivia Advances
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-gray-400">
+            <p className="mx-auto mt-4 max-w-2xl text-gray-500">
               We&apos;re committed to getting accident victims the financial support they need, when they need it.
             </p>
           </div>
@@ -231,22 +236,22 @@ export default function Home() {
                 icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
               },
               {
-                title: "Fast Funding",
+                title: "Fast Cash",
                 description: "Get your money within 24 hours of approval. When you need help, every hour counts.",
                 icon: "M13 10V3L4 14h7v7l9-11h-7z",
               },
             ].map((benefit) => (
               <div
                 key={benefit.title}
-                className="rounded-2xl border border-border bg-surface p-6 transition-all hover:border-blue-500/20"
+                className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-blue-200 hover:shadow-md"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
-                  <svg className="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
+                  <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={benefit.icon} />
                   </svg>
                 </div>
-                <h3 className="font-semibold text-white">{benefit.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-400">{benefit.description}</p>
+                <h3 className="font-semibold text-gray-900">{benefit.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-500">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -254,16 +259,16 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="relative z-10 border-t border-border/50 bg-surface/50 py-24">
+      <section className="relative z-10 border-t border-gray-100 bg-gray-50/50 py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="text-center text-3xl font-bold text-gray-900 sm:text-4xl">
             What Our Clients Say
           </h2>
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             {[
               {
                 quote:
-                  "After my accident, I couldn't work and bills were piling up. AP Funding got me $8,000 within 24 hours. It was a lifesaver.",
+                  "After my accident, I couldn't work and bills were piling up. Olivia Advances got me $8,000 within 24 hours. It was a lifesaver.",
                 name: "Maria R.",
                 location: "Houston, TX",
               },
@@ -275,14 +280,14 @@ export default function Home() {
               },
               {
                 quote:
-                  "I was skeptical at first, but AP Funding delivered. No credit check, no monthly payments, and they were upfront about everything.",
+                  "I was skeptical at first, but Olivia Advances delivered. No credit check, no monthly payments, and they were upfront about everything.",
                 name: "Sarah K.",
                 location: "Phoenix, AZ",
               },
             ].map((testimonial) => (
               <div
                 key={testimonial.name}
-                className="rounded-2xl border border-border bg-surface p-6"
+                className="rounded-2xl border border-gray-200 bg-white p-6"
               >
                 <div className="mb-4 flex gap-1">
                   {[...Array(5)].map((_, i) => (
@@ -291,12 +296,12 @@ export default function Home() {
                     </svg>
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed text-gray-300">
+                <p className="text-sm leading-relaxed text-gray-600">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-                <div className="mt-4 border-t border-border pt-4">
-                  <div className="text-sm font-medium text-white">{testimonial.name}</div>
-                  <div className="text-xs text-gray-500">{testimonial.location}</div>
+                <div className="mt-4 border-t border-gray-100 pt-4">
+                  <div className="text-sm font-medium text-gray-900">{testimonial.name}</div>
+                  <div className="text-xs text-gray-400">{testimonial.location}</div>
                 </div>
               </div>
             ))}
@@ -307,14 +312,14 @@ export default function Home() {
       {/* FAQ */}
       <section id="faq" className="relative z-10 py-24">
         <div className="mx-auto max-w-3xl px-6">
-          <h2 className="text-center text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="text-center text-3xl font-bold text-gray-900 sm:text-4xl">
             Frequently Asked Questions
           </h2>
           <div className="mt-12 space-y-4">
             {[
               {
                 q: "How much can I receive?",
-                a: "Depending on the details of your case, you may qualify for an advance between $500 and $25,000. Our chatbot Olivia can give you an instant estimate.",
+                a: "Depending on the details of your case, you may qualify for a cash advance between $500 and $25,000. Our chatbot Olivia can give you an instant estimate.",
               },
               {
                 q: "Do I need a lawyer?",
@@ -322,11 +327,11 @@ export default function Home() {
               },
               {
                 q: "What if I lose my case?",
-                a: "If your case doesn't result in a settlement or verdict, you owe us nothing. Our funding is completely non-recourse — zero risk to you.",
+                a: "If your case doesn't result in a settlement or verdict, you owe us nothing. Our cash advances are completely non-recourse — zero risk to you.",
               },
               {
-                q: "How fast can I get funded?",
-                a: "Once approved, many clients receive their funds within 24 hours. In some cases, it can be even faster.",
+                q: "How fast can I get my cash advance?",
+                a: "Once approved, many clients receive their cash advance within 24 hours. In some cases, it can be even faster.",
               },
               {
                 q: "Is there a credit check?",
@@ -335,15 +340,15 @@ export default function Home() {
             ].map((faq) => (
               <details
                 key={faq.q}
-                className="group rounded-2xl border border-border bg-surface transition-colors open:border-blue-500/30"
+                className="group rounded-2xl border border-gray-200 bg-white transition-colors open:border-blue-200"
               >
-                <summary className="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-medium text-white">
+                <summary className="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-medium text-gray-900">
                   {faq.q}
                   <svg className="h-5 w-5 shrink-0 text-gray-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
-                <div className="border-t border-border px-6 py-4 text-sm leading-relaxed text-gray-400">
+                <div className="border-t border-gray-100 px-6 py-4 text-sm leading-relaxed text-gray-500">
                   {faq.a}
                 </div>
               </details>
@@ -353,47 +358,52 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 border-t border-border/50 bg-gradient-to-b from-surface/50 to-background py-24">
+      <section className="relative z-10 border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
             Ready to Get Your Cash Advance?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-gray-400">
+          <p className="mx-auto mt-4 max-w-xl text-gray-500">
             Chat with Olivia now to find out how much you qualify for. It&apos;s fast, free, and comes with zero obligation.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <a
-              href="#chat"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110"
+            <button
+              onClick={openChat}
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
             >
               Chat with Olivia
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
+            </button>
+            <a
+              href="tel:+13254686779"
+              className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-8 py-3.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              (325) 468-6779
             </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border/50 py-12">
+      <footer className="relative z-10 border-t border-gray-100 py-12">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-700">
-                <span className="text-xs font-bold text-white">AP</span>
-              </div>
-              <span className="text-sm font-semibold text-white">AP Funding</span>
-            </div>
-            <p className="text-xs text-gray-500">
-              &copy; {new Date().getFullYear()} AP Funding. All rights reserved. This is not a loan. Funding is non-recourse.
+            <span className="text-sm font-semibold text-gray-900">Olivia Advances</span>
+            <a href="tel:+13254686779" className="text-sm text-gray-500 hover:text-gray-700">(325) 468-6779</a>
+            <p className="text-xs text-gray-400">
+              &copy; {new Date().getFullYear()} Olivia Advances. All rights reserved. This is not a loan. Cash advances are non-recourse.
             </p>
           </div>
         </div>
       </footer>
 
       {/* Chatbot */}
-      <Chatbot />
+      <Chatbot isOpen={chatOpen} setIsOpen={setChatOpen} />
     </div>
   );
 }

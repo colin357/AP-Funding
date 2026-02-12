@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       const client = twilio(accountSid, authToken);
 
       const messageBody = [
-        `🚨 NEW LEAD - AP Funding`,
+        `🚨 NEW LEAD - Olivia Advances`,
         ``,
         `Name: ${name}`,
         `Email: ${email}`,

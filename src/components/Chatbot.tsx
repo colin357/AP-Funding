@@ -22,13 +22,18 @@ interface Message {
   estimateData?: EstimateResult;
 }
 
-export default function Chatbot() {
-  const [isOpen, setIsOpen] = useState(false);
+interface ChatbotProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+}
+
+export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
   const [step, setStep] = useState<Step>("greeting");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [leadData, setLeadData] = useState<Partial<LeadData>>({});
   const [isTyping, setIsTyping] = useState(false);
+  const [hasGreeted, setHasGreeted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,13 +46,14 @@ export default function Chatbot() {
   }, [messages, isTyping]);
 
   useEffect(() => {
-    if (isOpen && step === "greeting" && messages.length === 0) {
+    if (isOpen && !hasGreeted) {
+      setHasGreeted(true);
       addBotMessage(
-        "Hi there! 👋 I'm Olivia, your funding assistant at AP Funding. I'm here to help you find out how much cash you could receive for your car accident case. It only takes a minute! Let's start — what's your name?",
+        "Hi there! I'm Olivia, your cash advance assistant at Olivia Advances. I'm here to help you find out how much cash you could receive for your car accident case. It only takes a minute! Let's start \u2014 what's your name?",
         "name"
       );
     }
-  }, [isOpen]);
+  }, [isOpen, hasGreeted]);
 
   useEffect(() => {
     if (isOpen && inputRef.current && step !== "hasLawyer" && step !== "calculating" && step !== "estimate" && step !== "done") {
@@ -92,7 +98,7 @@ export default function Chatbot() {
       case "name":
         setLeadData((prev) => ({ ...prev, name: userInput }));
         addBotMessage(
-          `Nice to meet you, ${userInput}! 😊 To keep you updated on your funding options, what's your email address?`,
+          `Nice to meet you, ${userInput}! To keep you updated on your cash advance options, what's your email address?`,
           "email"
         );
         break;
@@ -157,7 +163,7 @@ export default function Chatbot() {
         }
         setLeadData((prev) => ({ ...prev, injuries: userInput }));
         addBotMessage(
-          "Almost done! One last question — do you currently have an attorney representing you for this case?",
+          "Almost done! One last question \u2014 do you currently have an attorney representing you for this case?",
           "hasLawyer"
         );
         break;
@@ -211,7 +217,7 @@ export default function Chatbot() {
       }).catch(console.error);
 
       addBotEstimate(
-        `Based on the details you've shared, here's your estimated advance:`,
+        `Based on the details you've shared, here's your estimated cash advance:`,
         estimate
       );
     }, 1000);
@@ -222,9 +228,11 @@ export default function Chatbot() {
     setStep("greeting");
     setLeadData({});
     setInput("");
+    setHasGreeted(false);
     setTimeout(() => {
+      setHasGreeted(true);
       addBotMessage(
-        "Hi there! 👋 I'm Olivia, your funding assistant at AP Funding. I'm here to help you find out how much cash you could receive for your car accident case. It only takes a minute! Let's start — what's your name?",
+        "Hi there! I'm Olivia, your cash advance assistant at Olivia Advances. I'm here to help you find out how much cash you could receive for your car accident case. It only takes a minute! Let's start \u2014 what's your name?",
         "name"
       );
     }, 300);
@@ -257,22 +265,22 @@ export default function Chatbot() {
 
       {/* Chat window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 flex h-[550px] w-[400px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl shadow-black/50 animate-fade-in-up">
+        <div className="fixed bottom-24 right-6 z-50 flex h-[550px] w-[400px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-black/10 animate-fade-in-up">
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-border bg-gradient-to-r from-blue-600/10 to-purple-600/10 px-5 py-4">
+          <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-4">
             <div className="relative">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-sm font-bold text-white">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white">
                 O
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-surface bg-green-500" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-blue-500 bg-green-400" />
             </div>
             <div className="flex-1">
               <h3 className="text-sm font-semibold text-white">Olivia</h3>
-              <p className="text-xs text-gray-400">AP Funding Assistant</p>
+              <p className="text-xs text-blue-100">Olivia Advances Assistant</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-white/5 hover:text-white cursor-pointer"
+              className="rounded-lg p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -281,7 +289,7 @@ export default function Chatbot() {
           </div>
 
           {/* Messages */}
-          <div className="chatbot-messages flex-1 overflow-y-auto px-4 py-4 space-y-3">
+          <div className="chatbot-messages flex-1 overflow-y-auto bg-gray-50 px-4 py-4 space-y-3">
             {messages.map((msg, i) => (
               <div
                 key={i}
@@ -291,28 +299,28 @@ export default function Chatbot() {
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "bg-blue-600 text-white rounded-br-md"
-                      : "bg-surface-light text-gray-200 rounded-bl-md"
+                      : "bg-white text-gray-700 rounded-bl-md shadow-sm border border-gray-100"
                   }`}
                 >
                   {msg.text}
                   {msg.isEstimate && msg.estimateData && (
-                    <div className="mt-3 rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
-                      <div className="mb-1 text-xs font-medium uppercase tracking-wider text-blue-400">
-                        Estimated Advance
+                    <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                      <div className="mb-1 text-xs font-medium uppercase tracking-wider text-blue-600">
+                        Estimated Cash Advance
                       </div>
-                      <div className="text-2xl font-bold text-white">
+                      <div className="text-2xl font-bold text-gray-900">
                         ${msg.estimateData.low.toLocaleString()} &mdash; ${msg.estimateData.high.toLocaleString()}
                       </div>
                       <div className="mt-2 space-y-1">
                         {msg.estimateData.factors.map((f, fi) => (
-                          <div key={fi} className="flex items-start gap-1.5 text-xs text-blue-300">
-                            <span className="mt-0.5">✓</span>
+                          <div key={fi} className="flex items-start gap-1.5 text-xs text-blue-700">
+                            <span className="mt-0.5">&#10003;</span>
                             <span>{f}</span>
                           </div>
                         ))}
                       </div>
-                      <div className="mt-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20 px-3 py-2 text-xs text-yellow-300/90">
-                        ⚠️ This is only an estimate based on the information provided. Actual advance amounts may vary based on case review and documentation.
+                      <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700">
+                        This is only an estimate based on the information provided. Actual cash advance amounts may vary based on case review and documentation.
                       </div>
                     </div>
                   )}
@@ -322,7 +330,7 @@ export default function Chatbot() {
 
             {isTyping && (
               <div className="flex justify-start animate-fade-in-up">
-                <div className="flex items-center gap-1 rounded-2xl rounded-bl-md bg-surface-light px-4 py-3">
+                <div className="flex items-center gap-1 rounded-2xl rounded-bl-md bg-white px-4 py-3 shadow-sm border border-gray-100">
                   <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
                   <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
                   <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
@@ -333,7 +341,7 @@ export default function Chatbot() {
           </div>
 
           {/* Input area */}
-          <div className="border-t border-border bg-surface px-4 py-3">
+          <div className="border-t border-gray-200 bg-white px-4 py-3">
             {step === "hasLawyer" ? (
               <div className="flex gap-2">
                 <button
@@ -344,7 +352,7 @@ export default function Chatbot() {
                 </button>
                 <button
                   onClick={() => handleLawyerResponse(false)}
-                  className="flex-1 rounded-xl border border-border bg-surface-light py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 cursor-pointer"
+                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
                 >
                   No, not yet
                 </button>
@@ -352,17 +360,17 @@ export default function Chatbot() {
             ) : step === "done" ? (
               <div className="flex flex-col gap-2">
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+13254686779"
                   className="flex items-center justify-center gap-2 rounded-xl bg-green-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-500"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  Call Us Now
+                  Call Us: (325) 468-6779
                 </a>
                 <button
                   onClick={resetChat}
-                  className="rounded-xl border border-border py-2 text-xs text-gray-400 transition-colors hover:bg-white/5 cursor-pointer"
+                  className="rounded-xl border border-gray-200 py-2 text-xs text-gray-500 transition-colors hover:bg-gray-50 cursor-pointer"
                 >
                   Start a new conversation
                 </button>
@@ -391,7 +399,7 @@ export default function Chatbot() {
                               ? "Describe your injuries..."
                               : "Type a message..."
                   }
-                  className="flex-1 rounded-xl border border-border bg-surface-light px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition-colors focus:border-blue-500/50"
+                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-blue-400 focus:bg-white"
                   disabled={isTyping}
                 />
                 <button
