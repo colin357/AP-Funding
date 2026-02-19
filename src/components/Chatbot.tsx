@@ -216,6 +216,11 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
         }),
       }).catch(console.error);
 
+      // Meta Pixel Lead event
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Lead");
+      }
+
       addBotEstimate(
         `Based on the details you've shared, here's your estimated cash advance:`,
         estimate
