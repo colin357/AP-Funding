@@ -49,6 +49,26 @@ export async function POST(request: NextRequest) {
       console.log("New lead received:", { name, email, phone, accidentDate, injuries, hasLawyer });
     }
 
+    // Send lead data to Zapier webhook
+    try {
+      await fetch("https://hooks.zapier.com/hooks/catch/17690982/u0uhrm5/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          accidentDate,
+          injuries,
+          hasLawyer,
+          estimateLow,
+          estimateHigh,
+        }),
+      });
+    } catch (zapierError) {
+      console.error("Failed to send lead to Zapier:", zapierError);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error processing lead:", error);
