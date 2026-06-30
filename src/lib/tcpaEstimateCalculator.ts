@@ -66,7 +66,7 @@ export function calculateTcpaEstimate(
   let high = messages * PER_MESSAGE_HIGH;
 
   factors.push(
-    `Approximately ${messages} message${messages === 1 ? "" : "s"} at $500–$1,500 each under the TCPA`
+    `Approximately ${messages} message${messages === 1 ? "" : "s"} at a potential $500–$1,500 each under the TCPA (not guaranteed)`
   );
 
   // Asking the company to stop and being texted anyway points to willful

@@ -52,7 +52,7 @@ export default function TcpaHome() {
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm text-blue-600">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-              Up to $1,500 Per Illegal Text or Robocall
+              Up to $1,500 Possible Per Illegal Text or Robocall
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Get Paid for{" "}
@@ -64,8 +64,8 @@ export default function TcpaHome() {
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
               If a company keeps blowing up your phone with texts or calls you
               never agreed to, the law is on your side. Under the TCPA you may be
-              owed $500 to $1,500 for every single message — and we only get paid
-              if you do.
+              owed up to $500 to $1,500 for every illegal message — actual amounts
+              vary by case and aren&apos;t guaranteed, and we only get paid if you do.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
@@ -91,8 +91,8 @@ export default function TcpaHome() {
             {/* Trust indicators */}
             <div className="mt-12 flex items-center gap-8">
               <div>
-                <div className="text-2xl font-bold text-gray-900">$1,500</div>
-                <div className="text-xs text-gray-400">Per Illegal Message</div>
+                <div className="text-2xl font-bold text-gray-900">Up to $1,500</div>
+                <div className="text-xs text-gray-400">Possible Per Message</div>
               </div>
               <div className="h-8 w-px bg-gray-200" />
               <div>
@@ -173,7 +173,7 @@ export default function TcpaHome() {
                 step: "02",
                 title: "Get Your Estimate",
                 description:
-                  "Receive an instant estimate of what your claim could be worth — $500 to $1,500 for every illegal message.",
+                  "Receive an instant estimate of what your claim could be worth — potentially up to $500 to $1,500 for each illegal message, depending on your case.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 ),
@@ -227,8 +227,8 @@ export default function TcpaHome() {
                 icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
               },
               {
-                title: "$500–$1,500 Per Message",
-                description: "The TCPA sets statutory damages for every illegal text or call — the messages add up fast.",
+                title: "Up to $1,500 Per Message",
+                description: "The TCPA sets potential statutory damages of $500 to $1,500 for each illegal text or call you may recover — not guaranteed, but they can add up fast.",
                 icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
               },
               {
@@ -320,11 +320,11 @@ export default function TcpaHome() {
             {[
               {
                 q: "What is the TCPA?",
-                a: "The Telephone Consumer Protection Act (TCPA) is a federal law that restricts unsolicited telemarketing texts, robocalls, and autodialed messages. Companies that violate it can owe $500 to $1,500 for every single message they send you.",
+                a: "The Telephone Consumer Protection Act (TCPA) is a federal law that restricts unsolicited telemarketing texts, robocalls, and autodialed messages. Companies that violate it may owe $500 to $1,500 for each illegal message — though the exact amount, if any, depends on the specifics of your case and is never guaranteed.",
               },
               {
                 q: "How much can my claim be worth?",
-                a: "It depends on how many messages you received and the details of your situation. Each illegal message can be worth $500 to $1,500, so they add up quickly. Chat with Olivia for an instant estimate.",
+                a: "It depends on how many messages you received and the details of your situation. Each illegal message may be worth up to $500 to $1,500, so they can add up quickly — but this is a potential range, not a guaranteed payout. Chat with Olivia for an instant estimate.",
               },
               {
                 q: "What do I need to qualify?",
