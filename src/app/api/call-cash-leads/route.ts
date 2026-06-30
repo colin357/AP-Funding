@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       const client = twilio(accountSid, authToken);
 
       const messageBody = [
-        `🚨 NEW TCPA LEAD - Lindner Law Firm`,
+        `🚨 NEW CALL CASH LEAD - Call Cash`,
         ``,
         `Name: ${name}`,
         `Email: ${email}`,
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         `Est. # of messages: ${messageCount}`,
         `Spammer's number: ${companyPhone}`,
         `On Do Not Call Registry: ${dncRegistered ? "Yes" : "No"}`,
-        `Estimated Claim: $${estimateLow?.toLocaleString()} - $${estimateHigh?.toLocaleString()}`,
+        `Estimated Advance: $${estimateLow?.toLocaleString()} - $${estimateHigh?.toLocaleString()}`,
         ``,
         `Follow up ASAP!`,
       ].join("\n");
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
       console.warn(
         "Twilio credentials not configured. SMS notification skipped."
       );
-      console.log("New TCPA lead received:", {
+      console.log("New Call Cash lead received:", {
         name,
         email,
         phone,
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "tcpa",
+          type: "call-cash",
           name,
           email,
           phone,
@@ -111,12 +111,12 @@ export async function POST(request: NextRequest) {
         }),
       });
     } catch (zapierError) {
-      console.error("Failed to send TCPA lead to Zapier:", zapierError);
+      console.error("Failed to send Call Cash lead to Zapier:", zapierError);
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Error processing TCPA lead:", error);
+    console.error("Error processing Call Cash lead:", error);
     return NextResponse.json(
       { error: "Failed to process lead" },
       { status: 500 }

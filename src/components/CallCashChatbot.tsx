@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect, FormEvent } from "react";
 import {
-  calculateTcpaEstimate,
-  TcpaLeadData,
-  TcpaEstimateResult,
-} from "@/lib/tcpaEstimateCalculator";
+  calculateCallCashEstimate,
+  CallCashLeadData,
+  CallCashEstimateResult,
+} from "@/lib/callCashEstimateCalculator";
 
 type Step =
   | "greeting"
@@ -30,22 +30,25 @@ interface Message {
   role: "bot" | "user";
   text: string;
   isEstimate?: boolean;
-  estimateData?: TcpaEstimateResult;
+  estimateData?: CallCashEstimateResult;
 }
 
-interface TcpaChatbotProps {
+interface CallCashChatbotProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }
 
 const GREETING =
-  "Hi there! I'm Olivia, your claims assistant.\n\nIf a company has been blowing up your phone with spam texts or robocalls, you may be owed money under the TCPA.\n\nI'll ask you a few quick questions to see what your claim could be worth. First, what is the phone number that you received the messages at?";
+  "Hi there! I'm Callie, your advance assistant at Call Cash.\n\nIf a company has been hitting your phone with spam texts or robocalls, you may have a TCPA case — and we can get you a cash advance on it now, up to $1,000 per violation after underwriting.\n\nI'll ask you a few quick questions to see what you could qualify for. First, what is the phone number that you received the messages at?";
 
-export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
+export default function CallCashChatbot({
+  isOpen,
+  setIsOpen,
+}: CallCashChatbotProps) {
   const [step, setStep] = useState<Step>("greeting");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [leadData, setLeadData] = useState<Partial<TcpaLeadData>>({});
+  const [leadData, setLeadData] = useState<Partial<CallCashLeadData>>({});
   const [isTyping, setIsTyping] = useState(false);
   const [hasGreeted, setHasGreeted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -89,7 +92,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
     }, 800 + Math.random() * 600);
   };
 
-  const addBotEstimate = (text: string, estimateData: TcpaEstimateResult) => {
+  const addBotEstimate = (text: string, estimateData: CallCashEstimateResult) => {
     setIsTyping(true);
     setTimeout(() => {
       setMessages((prev) => [
@@ -186,7 +189,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       case "name":
         setLeadData((prev) => ({ ...prev, name: userInput }));
         addBotMessage(
-          `Nice to meet you, ${userInput}! What's the best email address to send your claim details to?`,
+          `Nice to meet you, ${userInput}! What's the best email address to send your advance details to?`,
           "email"
         );
         break;
@@ -215,7 +218,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           return;
         }
 
-        const finalData: TcpaLeadData = {
+        const finalData: CallCashLeadData = {
           name: leadData.name || "",
           email: leadData.email || "",
           phone: userInput,
@@ -240,14 +243,14 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
             ...prev,
             {
               role: "bot",
-              text: `Thanks for sharing all of that, ${finalData.name}! Let me review your claim...`,
+              text: `Thanks for sharing all of that, ${finalData.name}! Let me review what you could qualify for...`,
             },
           ]);
           setIsTyping(false);
 
-          const estimate = calculateTcpaEstimate(finalData);
+          const estimate = calculateCallCashEstimate(finalData);
 
-          fetch("/api/tcpa-leads", {
+          fetch("/api/call-cash-leads", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -263,7 +266,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           }
 
           addBotEstimate(
-            "Based on what you've shared, here's an estimate of what your TCPA claim could be worth:",
+            "Based on what you've shared, here's an estimate of the cash advance you may qualify for on your TCPA case:",
             estimate
           );
         }, 1000);
@@ -376,13 +379,13 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-4">
             <div className="relative">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white">
-                O
+                C
               </div>
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-blue-500 bg-green-400" />
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-white">Olivia</h3>
-              <p className="text-xs text-blue-100">Lindner Law Firm Assistant</p>
+              <h3 className="text-sm font-semibold text-white">Callie</h3>
+              <p className="text-xs text-blue-100">Call Cash Assistant</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -412,7 +415,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
                   {msg.isEstimate && msg.estimateData && (
                     <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4">
                       <div className="mb-1 text-xs font-medium uppercase tracking-wider text-blue-600">
-                        Estimated Claim Value
+                        Estimated Cash Advance
                       </div>
                       <div className="text-2xl font-bold text-gray-900">
                         ${msg.estimateData.low.toLocaleString()} &mdash; ${msg.estimateData.high.toLocaleString()}
@@ -426,7 +429,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
                         ))}
                       </div>
                       <div className="mt-3 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700">
-                        This is only an estimate based on the information provided and is not legal advice. Actual claim value depends on case review and documentation.
+                        This is only an estimate, not an offer of funding. Final advance amounts are decided after underwriting, typically within 48 hours, and are not guaranteed.
                       </div>
                     </div>
                   )}
@@ -495,7 +498,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
               </div>
             ) : step === "calculating" ? (
               <div className="py-2 text-center text-sm text-gray-400">
-                Reviewing your claim...
+                Reviewing your advance...
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="flex gap-2">
