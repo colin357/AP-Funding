@@ -10,6 +10,7 @@ import {
 type Step =
   | "greeting"
   | "phoneReceived"
+  | "callOrText"
   | "phoneDuration"
   | "location"
   | "spamTimeframe"
@@ -69,6 +70,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
     if (
       isOpen &&
       inputRef.current &&
+      step !== "callOrText" &&
       step !== "dncRegistered" &&
       step !== "calculating" &&
       step !== "estimate" &&
@@ -122,10 +124,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           return;
         }
         setLeadData((prev) => ({ ...prev, phoneReceived: userInput }));
-        addBotMessage(
-          "Thanks! How long have you had that phone number?",
-          "phoneDuration"
-        );
+        addBotMessage("Thanks! Was it a call or a text?", "callOrText");
         break;
 
       case "phoneDuration":
@@ -221,6 +220,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           email: leadData.email || "",
           phone: userInput,
           phoneReceived: leadData.phoneReceived || "",
+          callOrText: leadData.callOrText || "",
           phoneDuration: leadData.phoneDuration || "",
           location: leadData.location || "",
           spamTimeframe: leadData.spamTimeframe || "",
@@ -273,6 +273,16 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       default:
         break;
     }
+  };
+
+  const handleCallOrText = (value: string) => {
+    if (isTyping) return;
+    setMessages((prev) => [...prev, { role: "user", text: value }]);
+    setLeadData((prev) => ({ ...prev, callOrText: value }));
+    addBotMessage(
+      "Got it. How long have you had that phone number?",
+      "phoneDuration"
+    );
   };
 
   const handleDncResponse = (dncRegistered: boolean) => {
@@ -438,7 +448,19 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
 
           {/* Input area */}
           <div className="border-t border-gray-200 bg-white px-4 py-3">
-            {step === "dncRegistered" ? (
+            {step === "callOrText" ? (
+              <div className="flex gap-2">
+                {["Call", "Text", "Both"].map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => handleCallOrText(option)}
+                    className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 cursor-pointer"
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            ) : step === "dncRegistered" ? (
               <div className="flex gap-2">
                 <button
                   onClick={() => handleDncResponse(true)}

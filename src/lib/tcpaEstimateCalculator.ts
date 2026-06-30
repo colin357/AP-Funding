@@ -3,6 +3,7 @@ export interface TcpaLeadData {
   email: string;
   phone: string;
   phoneReceived: string;
+  callOrText: string;
   phoneDuration: string;
   location: string;
   spamTimeframe: string;
