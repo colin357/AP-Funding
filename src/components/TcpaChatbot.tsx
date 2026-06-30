@@ -38,7 +38,7 @@ interface TcpaChatbotProps {
 }
 
 const GREETING =
-  "Hi there! I'm Olivia, your claims assistant at Olivia Claims. If a company has been blowing up your phone with spam texts or robocalls, you may be owed money under the TCPA. I'll ask you a few quick questions to see what your claim could be worth. First — what is the phone number that you received the messages at?";
+  "Hi there! I'm Olivia, your claims assistant.\n\nIf a company has been blowing up your phone with spam texts or robocalls, you may be owed money under the TCPA.\n\nI'll ask you a few quick questions to see what your claim could be worth. First, what is the phone number that you received the messages at?";
 
 export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
   const [step, setStep] = useState<Step>("greeting");
@@ -155,7 +155,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       case "customerHistory":
         setLeadData((prev) => ({ ...prev, customerHistory: userInput }));
         addBotMessage(
-          "Did you ask this company to stop? If you did, please keep any screenshots — our team will request them. If you haven't, please reply STOP, and if they keep texting you afterward, save those screenshots too. Did you ask them to stop?",
+          "Did you ask this company to stop messaging you?\n\nIf you did, please save any screenshots — our team will ask for them later. If you haven't, reply STOP to them, and if they keep texting you, save those screenshots too.",
           "askedToStop"
         );
         break;
@@ -392,7 +392,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
                 className={`flex animate-fade-in-up ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
                       ? "bg-blue-600 text-white rounded-br-md"
                       : "bg-white text-gray-700 rounded-bl-md shadow-sm border border-gray-100"
