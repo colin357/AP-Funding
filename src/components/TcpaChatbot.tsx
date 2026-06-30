@@ -155,7 +155,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       case "customerHistory":
         setLeadData((prev) => ({ ...prev, customerHistory: userInput }));
         addBotMessage(
-          "Did you ask this company to stop? If you did, please keep any screenshots — our team will request them. If you haven't, please reply STOP, and if they keep texting you afterward, save those screenshots too. Did you ask them to stop?",
+          "Did you ask this company to stop messaging you?\n\nIf you did, please save any screenshots — our team will ask for them later. If you haven't, reply STOP to them, and if they keep texting you, save those screenshots too.",
           "askedToStop"
         );
         break;
