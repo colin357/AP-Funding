@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       messageCount,
       companyPhone,
       dncRegistered,
+      consent,
       estimateLow,
       estimateHigh,
     } = body;
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
       const client = twilio(accountSid, authToken);
 
       const messageBody = [
-        `🚨 NEW TCPA LEAD - Lindner Law Firm`,
+        `🚨 NEW TCPA LEAD - Lindner Law Group`,
         ``,
         `Name: ${name}`,
         `Email: ${email}`,
@@ -55,6 +56,7 @@ export async function POST(request: NextRequest) {
         `Est. # of messages: ${messageCount}`,
         `Spammer's number: ${companyPhone}`,
         `On Do Not Call Registry: ${dncRegistered ? "Yes" : "No"}`,
+        `Consent to contact: ${consent ? "Yes" : "No"}`,
         `Estimated Claim: $${estimateLow?.toLocaleString()} - $${estimateHigh?.toLocaleString()}`,
         ``,
         `Follow up ASAP!`,
@@ -83,6 +85,7 @@ export async function POST(request: NextRequest) {
         messageCount,
         companyPhone,
         dncRegistered,
+        consent,
       });
     }
 
@@ -106,6 +109,7 @@ export async function POST(request: NextRequest) {
           messageCount,
           companyPhone,
           dncRegistered,
+          consent,
           estimateLow,
           estimateHigh,
         }),

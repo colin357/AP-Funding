@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 import { getTermsContent, LAST_UPDATED, type BrandConfig } from "@/lib/legalContent";
 
 const cfg: BrandConfig = {
-  brand: "Lindner Law Firm",
+  brand: "Lindner Law Group",
   phone: "(954) 320-0708",
   phoneHref: "tel:+19543200708",
   homeHref: "/tcpa",
@@ -13,7 +13,7 @@ const cfg: BrandConfig = {
 };
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Lindner Law Firm",
+  title: "Terms & Conditions | Lindner Law Group",
 };
 
 export default function TcpaTermsPage() {

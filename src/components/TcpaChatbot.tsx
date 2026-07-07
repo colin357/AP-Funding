@@ -22,6 +22,7 @@ type Step =
   | "name"
   | "email"
   | "phone"
+  | "consent"
   | "calculating"
   | "estimate"
   | "done";
@@ -39,7 +40,7 @@ interface TcpaChatbotProps {
 }
 
 const GREETING =
-  "Hi there! I'm Olivia, your claims assistant.\n\nIf a company has been blowing up your phone with spam texts or robocalls, you may be owed money under the TCPA.\n\nI'll ask you a few quick questions to see what your claim could be worth. First, what is the phone number that you received the messages at?";
+  "Hi there! I'm Olivia AI, your claims assistant.\n\nIf a company has been blowing up your phone with spam texts or robocalls, you may be owed money under the TCPA.\n\nI'll ask you a few quick questions to see what your claim could be worth. First, what is the phone number that you received the messages at?";
 
 export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
   const [step, setStep] = useState<Step>("greeting");
@@ -72,6 +73,7 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       inputRef.current &&
       step !== "callOrText" &&
       step !== "dncRegistered" &&
+      step !== "consent" &&
       step !== "calculating" &&
       step !== "estimate" &&
       step !== "done"
@@ -214,59 +216,11 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
           );
           return;
         }
-
-        const finalData: TcpaLeadData = {
-          name: leadData.name || "",
-          email: leadData.email || "",
-          phone: userInput,
-          phoneReceived: leadData.phoneReceived || "",
-          callOrText: leadData.callOrText || "",
-          phoneDuration: leadData.phoneDuration || "",
-          location: leadData.location || "",
-          spamTimeframe: leadData.spamTimeframe || "",
-          customerHistory: leadData.customerHistory || "",
-          askedToStop: leadData.askedToStop || "",
-          messageCount: leadData.messageCount || "",
-          companyPhone: leadData.companyPhone || "",
-          dncRegistered: leadData.dncRegistered ?? false,
-        };
-
-        setLeadData(finalData);
-        setStep("calculating");
-
-        setIsTyping(true);
-        setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "bot",
-              text: `Thanks for sharing all of that, ${finalData.name}! Let me review your claim...`,
-            },
-          ]);
-          setIsTyping(false);
-
-          const estimate = calculateTcpaEstimate(finalData);
-
-          fetch("/api/tcpa-leads", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ...finalData,
-              estimateLow: estimate.low,
-              estimateHigh: estimate.high,
-            }),
-          }).catch(console.error);
-
-          // Meta Pixel Lead event
-          if (typeof window !== "undefined" && (window as any).fbq) {
-            (window as any).fbq("track", "Lead");
-          }
-
-          addBotEstimate(
-            "Based on what you've shared, here's an estimate of what your TCPA claim could be worth:",
-            estimate
-          );
-        }, 1000);
+        setLeadData((prev) => ({ ...prev, phone: userInput }));
+        addBotMessage(
+          "Last thing before your estimate: do you agree to be contacted by Lindner Law Group about your claim — by phone, text, and email, including through automated or AI-assisted systems? Message and data rates may apply, and you can reply STOP at any time to opt out.",
+          "consent"
+        );
         break;
       }
 
@@ -301,6 +255,71 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
       "Perfect — last few details so we can follow up. What's your name?",
       "name"
     );
+  };
+
+  const handleConsent = (consent: boolean) => {
+    if (isTyping) return;
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: consent ? "Yes, I consent" : "No, I don't consent",
+      },
+    ]);
+
+    const finalData: TcpaLeadData = {
+      name: leadData.name || "",
+      email: leadData.email || "",
+      phone: leadData.phone || "",
+      phoneReceived: leadData.phoneReceived || "",
+      callOrText: leadData.callOrText || "",
+      phoneDuration: leadData.phoneDuration || "",
+      location: leadData.location || "",
+      spamTimeframe: leadData.spamTimeframe || "",
+      customerHistory: leadData.customerHistory || "",
+      askedToStop: leadData.askedToStop || "",
+      messageCount: leadData.messageCount || "",
+      companyPhone: leadData.companyPhone || "",
+      dncRegistered: leadData.dncRegistered ?? false,
+      consent,
+    };
+
+    setLeadData(finalData);
+    setStep("calculating");
+
+    setIsTyping(true);
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: `Thanks for sharing all of that, ${finalData.name}! Let me review your claim...`,
+        },
+      ]);
+      setIsTyping(false);
+
+      const estimate = calculateTcpaEstimate(finalData);
+
+      fetch("/api/tcpa-leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...finalData,
+          estimateLow: estimate.low,
+          estimateHigh: estimate.high,
+        }),
+      }).catch(console.error);
+
+      // Meta Pixel Lead event
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Lead");
+      }
+
+      addBotEstimate(
+        "Based on what you've shared, here's an estimate of what your TCPA claim could be worth:",
+        estimate
+      );
+    }, 1000);
   };
 
   const resetChat = () => {
@@ -381,8 +400,8 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-blue-500 bg-green-400" />
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-white">Olivia</h3>
-              <p className="text-xs text-blue-100">Lindner Law Firm Assistant</p>
+              <h3 className="text-sm font-semibold text-white">Olivia AI</h3>
+              <p className="text-xs text-blue-100">Lindner Law Group Assistant</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -473,6 +492,21 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
                   className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
                 >
                   No / Not sure
+                </button>
+              </div>
+            ) : step === "consent" ? (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleConsent(true)}
+                  className="flex-1 rounded-xl bg-blue-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 cursor-pointer"
+                >
+                  Yes, I consent
+                </button>
+                <button
+                  onClick={() => handleConsent(false)}
+                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
+                >
+                  No
                 </button>
               </div>
             ) : step === "done" ? (

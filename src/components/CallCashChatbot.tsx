@@ -22,6 +22,7 @@ type Step =
   | "name"
   | "email"
   | "phone"
+  | "consent"
   | "calculating"
   | "estimate"
   | "done";
@@ -75,6 +76,7 @@ export default function CallCashChatbot({
       inputRef.current &&
       step !== "callOrText" &&
       step !== "dncRegistered" &&
+      step !== "consent" &&
       step !== "calculating" &&
       step !== "estimate" &&
       step !== "done"
@@ -217,59 +219,11 @@ export default function CallCashChatbot({
           );
           return;
         }
-
-        const finalData: CallCashLeadData = {
-          name: leadData.name || "",
-          email: leadData.email || "",
-          phone: userInput,
-          phoneReceived: leadData.phoneReceived || "",
-          callOrText: leadData.callOrText || "",
-          phoneDuration: leadData.phoneDuration || "",
-          location: leadData.location || "",
-          spamTimeframe: leadData.spamTimeframe || "",
-          customerHistory: leadData.customerHistory || "",
-          askedToStop: leadData.askedToStop || "",
-          messageCount: leadData.messageCount || "",
-          companyPhone: leadData.companyPhone || "",
-          dncRegistered: leadData.dncRegistered ?? false,
-        };
-
-        setLeadData(finalData);
-        setStep("calculating");
-
-        setIsTyping(true);
-        setTimeout(() => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "bot",
-              text: `Thanks for sharing all of that, ${finalData.name}! Let me review what you could qualify for...`,
-            },
-          ]);
-          setIsTyping(false);
-
-          const estimate = calculateCallCashEstimate(finalData);
-
-          fetch("/api/call-cash-leads", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ...finalData,
-              estimateLow: estimate.low,
-              estimateHigh: estimate.high,
-            }),
-          }).catch(console.error);
-
-          // Meta Pixel Lead event
-          if (typeof window !== "undefined" && (window as any).fbq) {
-            (window as any).fbq("track", "Lead");
-          }
-
-          addBotEstimate(
-            "Based on what you've shared, here's an estimate of the cash advance you may qualify for on your TCPA case:",
-            estimate
-          );
-        }, 1000);
+        setLeadData((prev) => ({ ...prev, phone: userInput }));
+        addBotMessage(
+          "Last thing before your estimate: do you agree to be contacted by Call Cash about your advance — by phone, text, and email, including through automated or AI-assisted systems? Message and data rates may apply, and you can reply STOP at any time to opt out.",
+          "consent"
+        );
         break;
       }
 
@@ -304,6 +258,71 @@ export default function CallCashChatbot({
       "Perfect — last few details so we can follow up. What's your name?",
       "name"
     );
+  };
+
+  const handleConsent = (consent: boolean) => {
+    if (isTyping) return;
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        text: consent ? "Yes, I consent" : "No, I don't consent",
+      },
+    ]);
+
+    const finalData: CallCashLeadData = {
+      name: leadData.name || "",
+      email: leadData.email || "",
+      phone: leadData.phone || "",
+      phoneReceived: leadData.phoneReceived || "",
+      callOrText: leadData.callOrText || "",
+      phoneDuration: leadData.phoneDuration || "",
+      location: leadData.location || "",
+      spamTimeframe: leadData.spamTimeframe || "",
+      customerHistory: leadData.customerHistory || "",
+      askedToStop: leadData.askedToStop || "",
+      messageCount: leadData.messageCount || "",
+      companyPhone: leadData.companyPhone || "",
+      dncRegistered: leadData.dncRegistered ?? false,
+      consent,
+    };
+
+    setLeadData(finalData);
+    setStep("calculating");
+
+    setIsTyping(true);
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: `Thanks for sharing all of that, ${finalData.name}! Let me review what you could qualify for...`,
+        },
+      ]);
+      setIsTyping(false);
+
+      const estimate = calculateCallCashEstimate(finalData);
+
+      fetch("/api/call-cash-leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...finalData,
+          estimateLow: estimate.low,
+          estimateHigh: estimate.high,
+        }),
+      }).catch(console.error);
+
+      // Meta Pixel Lead event
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Lead");
+      }
+
+      addBotEstimate(
+        "Based on what you've shared, here's an estimate of the cash advance you may qualify for on your TCPA case:",
+        estimate
+      );
+    }, 1000);
   };
 
   const resetChat = () => {
@@ -476,6 +495,21 @@ export default function CallCashChatbot({
                   className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
                 >
                   No / Not sure
+                </button>
+              </div>
+            ) : step === "consent" ? (
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleConsent(true)}
+                  className="flex-1 rounded-xl bg-blue-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 cursor-pointer"
+                >
+                  Yes, I consent
+                </button>
+                <button
+                  onClick={() => handleConsent(false)}
+                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
+                >
+                  No
                 </button>
               </div>
             ) : step === "done" ? (
