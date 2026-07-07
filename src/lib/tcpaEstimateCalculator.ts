@@ -12,6 +12,7 @@ export interface TcpaLeadData {
   messageCount: string;
   companyPhone: string;
   dncRegistered: boolean;
+  consent: boolean;
 }
 
 export interface TcpaEstimateResult {

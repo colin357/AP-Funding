@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 import { getPrivacyContent, LAST_UPDATED, type BrandConfig } from "@/lib/legalContent";
 
 const cfg: BrandConfig = {
-  brand: "Lindner Law Firm",
+  brand: "Lindner Law Group",
   phone: "(954) 320-0708",
   phoneHref: "tel:+19543200708",
   homeHref: "/tcpa",
@@ -12,7 +12,7 @@ const cfg: BrandConfig = {
 };
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Lindner Law Firm",
+  title: "Privacy Policy | Lindner Law Group",
 };
 
 export default function TcpaPrivacyPage() {

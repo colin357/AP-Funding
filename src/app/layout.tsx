@@ -3,15 +3,16 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Olivia Advances | Car Accident Cash Advances",
+  title: "Call Cash | Cash Advances on Your TCPA Case",
   description:
-    "Get fast cash advances for your car accident case. No credit check, no monthly payments. Receive $500 to $25,000 within 24 hours.",
+    "Have a TCPA case from spam texts or robocalls? Call Cash gets you a pre-settlement cash advance — up to $1,000 per violation after underwriting, with funding decisions in 48 hours. Non-recourse: you only pay it back if your case wins.",
   keywords: [
-    "car accident cash advance",
-    "pre-settlement cash advance",
-    "accident cash advance",
-    "legal cash advance",
-    "Olivia Advances",
+    "TCPA cash advance",
+    "pre-settlement funding TCPA",
+    "lawsuit cash advance",
+    "spam text lawsuit funding",
+    "robocall settlement advance",
+    "Call Cash",
   ],
 };
 

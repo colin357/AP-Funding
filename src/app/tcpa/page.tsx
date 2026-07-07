@@ -20,9 +20,12 @@ export default function TcpaHome() {
       {/* Navigation */}
       <nav className="relative z-10 border-b border-border/50 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold tracking-tight text-gray-900">
-            Lindner Law Firm
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/lindner-law-group.svg"
+            alt="Lindner Law Group"
+            className="h-10 w-auto"
+          />
           <div className="hidden items-center gap-8 md:flex">
             <a href="#how-it-works" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               How It Works
@@ -213,7 +216,7 @@ export default function TcpaHome() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Why Choose Lindner Law Firm
+              Why Choose Lindner Law Group
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-gray-500">
               We hold spammers accountable and put money back in your pocket — with zero risk to you.
@@ -269,7 +272,7 @@ export default function TcpaHome() {
             {[
               {
                 quote:
-                  "I was getting 5 spam texts a day from a company I'd never even heard of. Lindner Law Firm got me a settlement I never expected. Took me two minutes to start.",
+                  "I was getting 5 spam texts a day from a company I'd never even heard of. Lindner Law Group got me a settlement I never expected. Took me two minutes to start.",
                 name: "Maria R.",
                 location: "Houston, TX",
               },
@@ -394,14 +397,14 @@ export default function TcpaHome() {
       <footer className="relative z-10 border-t border-gray-100 py-12">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <span className="text-sm font-semibold text-gray-900">Lindner Law Firm</span>
+            <span className="text-sm font-semibold text-gray-900">Lindner Law Group</span>
             <a href="tel:+19543200708" className="text-sm text-gray-500 hover:text-gray-700">(954) 320-0708</a>
             <div className="flex items-center gap-4">
               <a href="/tcpa/terms" className="text-xs text-gray-500 hover:text-gray-900">Terms &amp; Conditions</a>
               <a href="/tcpa/privacy" className="text-xs text-gray-500 hover:text-gray-900">Privacy Policy</a>
             </div>
             <p className="text-xs text-gray-400">
-              &copy; {new Date().getFullYear()} Lindner Law Firm. All rights reserved. This is attorney advertising and not legal advice. Estimates are not a guarantee of recovery.
+              &copy; {new Date().getFullYear()} Lindner Law Group. All rights reserved. This is attorney advertising and not legal advice. Estimates are not a guarantee of recovery.
             </p>
           </div>
         </div>

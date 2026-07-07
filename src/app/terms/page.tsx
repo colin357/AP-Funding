@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 import { getTermsContent, LAST_UPDATED, type BrandConfig } from "@/lib/legalContent";
 
 const cfg: BrandConfig = {
-  brand: "Olivia Advances",
+  brand: "Call Cash",
   phone: "(954) 320-0708",
   phoneHref: "tel:+19543200708",
   homeHref: "/",
@@ -12,10 +12,10 @@ const cfg: BrandConfig = {
 };
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Olivia Advances",
+  title: "Terms & Conditions | Call Cash",
 };
 
-export default function TermsPage() {
+export default function CallCashTermsPage() {
   const { intro, sections } = getTermsContent(cfg);
   return (
     <LegalPage
