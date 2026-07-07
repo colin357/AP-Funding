@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import CallCashChatbot from "@/components/CallCashChatbot";
+import Chatbot from "@/components/Chatbot";
 
-export default function CallCashHome() {
+export default function Home() {
   const [chatOpen, setChatOpen] = useState(false);
 
   const openChat = () => setChatOpen(true);
@@ -21,7 +21,7 @@ export default function CallCashHome() {
       <nav className="relative z-10 border-b border-border/50 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <span className="text-xl font-bold tracking-tight text-gray-900">
-            Call Cash
+            Olivia Advances
           </span>
           <div className="hidden items-center gap-8 md:flex">
             <a href="#how-it-works" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
@@ -41,7 +41,7 @@ export default function CallCashHome() {
             onClick={openChat}
             className="rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/25 cursor-pointer"
           >
-            Get Your Advance
+            Get Your Estimate
           </button>
         </div>
       </nav>
@@ -52,27 +52,26 @@ export default function CallCashHome() {
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm text-blue-600">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-              Up to $1,000 Per Violation — Funded in 48 Hours
+              Fast Cash Advances — As Quick As 24 Hours
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              Cash Advances on Your{" "}
+              Cash Advances for{" "}
               <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                TCPA
+                Car Accident
               </span>{" "}
-              Case
+              Cases
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
-              Don&apos;t wait on your spam-text or robocall case to settle. Call
-              Cash gets you money now — up to $1,000 per violation after
-              underwriting, with funding decisions in as little as 48 hours. It&apos;s
-              non-recourse, so you only pay it back if your case wins.
+              Don&apos;t wait for your settlement. Get the money you need now —
+              from $500 to $25,000. No credit checks, no monthly payments,
+              and you only pay if you win.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
                 onClick={openChat}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
               >
-                See What You Qualify For
+                See How Much You Qualify For
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -91,18 +90,18 @@ export default function CallCashHome() {
             {/* Trust indicators */}
             <div className="mt-12 flex items-center gap-8">
               <div>
-                <div className="text-2xl font-bold text-gray-900">Up to $1,000</div>
-                <div className="text-xs text-gray-400">Per Violation</div>
+                <div className="text-2xl font-bold text-gray-900">$50M+</div>
+                <div className="text-xs text-gray-400">Advanced to Clients</div>
               </div>
               <div className="h-8 w-px bg-gray-200" />
               <div>
-                <div className="text-2xl font-bold text-gray-900">48 hrs</div>
-                <div className="text-xs text-gray-400">Underwriting Decision</div>
+                <div className="text-2xl font-bold text-gray-900">24hrs</div>
+                <div className="text-xs text-gray-400">Average Turnaround</div>
               </div>
               <div className="h-8 w-px bg-gray-200" />
               <div>
-                <div className="text-2xl font-bold text-gray-900">$0</div>
-                <div className="text-xs text-gray-400">If Your Case Loses</div>
+                <div className="text-2xl font-bold text-gray-900">4.9/5</div>
+                <div className="text-xs text-gray-400">Client Rating</div>
               </div>
             </div>
           </div>
@@ -119,8 +118,8 @@ export default function CallCashHome() {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-gray-400">Potential Advance</div>
-                    <div className="text-2xl font-bold text-gray-900">Up to $1,000 / violation</div>
+                    <div className="text-sm font-medium text-gray-400">Cash Advance Amount</div>
+                    <div className="text-2xl font-bold text-gray-900">$500 — $25,000</div>
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -133,12 +132,12 @@ export default function CallCashHome() {
                     <span className="text-sm font-semibold text-green-600">$0</span>
                   </div>
                   <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
-                    <span className="text-sm text-gray-500">If Your Case Loses</span>
+                    <span className="text-sm text-gray-500">If You Lose</span>
                     <span className="text-sm font-semibold text-green-600">You Owe Nothing</span>
                   </div>
                   <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
-                    <span className="text-sm text-gray-500">Underwriting</span>
-                    <span className="text-sm font-semibold text-blue-600">Within 48 Hours</span>
+                    <span className="text-sm text-gray-500">Speed</span>
+                    <span className="text-sm font-semibold text-blue-600">Within 24 Hours</span>
                   </div>
                 </div>
               </div>
@@ -155,25 +154,25 @@ export default function CallCashHome() {
               How It Works
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-              Getting an advance on your TCPA case is simple. Our streamlined process gets money in your hands fast.
+              Getting your cash advance is simple. Our streamlined process gets money in your hands fast.
             </p>
           </div>
           <div className="mt-16 grid gap-8 md:grid-cols-3">
             {[
               {
                 step: "01",
-                title: "Chat with Callie",
+                title: "Chat with Olivia",
                 description:
-                  "Answer a few quick questions about the spam texts or calls you've been getting. It takes less than 2 minutes.",
+                  "Answer a few quick questions about your accident and injuries through our assistant. It takes less than 2 minutes.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 ),
               },
               {
                 step: "02",
-                title: "Quick Underwriting",
+                title: "Get Your Estimate",
                 description:
-                  "Our team reviews your case and makes a funding decision in as little as 48 hours — up to $1,000 per violation.",
+                  "Receive an instant estimate of how much cash you may qualify for — anywhere from $500 to $25,000.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 ),
@@ -182,7 +181,7 @@ export default function CallCashHome() {
                 step: "03",
                 title: "Get Your Cash",
                 description:
-                  "Once approved, receive your advance fast. No credit checks, no monthly payments — and you only repay if your case wins.",
+                  "Once approved, receive your cash advance as fast as 24 hours. No credit checks, no monthly payments.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 ),
@@ -213,33 +212,33 @@ export default function CallCashHome() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Why Choose Call Cash
+              Why Choose Olivia Advances
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-              We turn your TCPA case into cash in hand — fast, with zero risk to you.
+              We&apos;re committed to getting accident victims the financial support they need, when they need it.
             </p>
           </div>
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 title: "No Credit Check",
-                description: "Your credit score doesn't matter. Approval is based on the strength of your TCPA case.",
+                description: "Your credit score doesn't matter. Approval is based on the strength of your case.",
                 icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
               },
               {
-                title: "Up to $1,000 Per Violation",
-                description: "Every illegal text or call can be a violation. After underwriting, you may qualify for up to $1,000 each.",
-                icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-              },
-              {
-                title: "Funded in 48 Hours",
-                description: "Our underwriting team moves fast — funding decisions in as little as 48 hours.",
-                icon: "M13 10V3L4 14h7v7l9-11h-7z",
+                title: "No Monthly Payments",
+                description: "You don't pay us back until your case settles. Zero out-of-pocket costs.",
+                icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
               },
               {
                 title: "Risk-Free",
-                description: "Advances are non-recourse. If your case doesn't win, you owe us nothing.",
+                description: "If you don't win your case, you owe us nothing. It's that simple.",
                 icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+              },
+              {
+                title: "Fast Cash",
+                description: "Get your money within 24 hours of approval. When you need help, every hour counts.",
+                icon: "M13 10V3L4 14h7v7l9-11h-7z",
               },
             ].map((benefit) => (
               <div
@@ -269,19 +268,19 @@ export default function CallCashHome() {
             {[
               {
                 quote:
-                  "I had a pile of spam texts and bills I couldn't cover while my case played out. Call Cash advanced me money in two days. Total lifesaver.",
+                  "After my accident, I couldn't work and bills were piling up. Olivia Advances got me $8,000 within 24 hours. It was a lifesaver.",
                 name: "Maria R.",
                 location: "Houston, TX",
               },
               {
                 quote:
-                  "The underwriting was fast and the whole thing was non-recourse, so there was no risk to me. Callie made it painless.",
+                  "The process was incredibly easy. Olivia walked me through everything and I had my cash advance the next day. No hassle at all.",
                 name: "James T.",
                 location: "Atlanta, GA",
               },
               {
                 quote:
-                  "I didn't want to wait a year for my TCPA case to settle. Call Cash got me an advance up front and I only repay if I win.",
+                  "I was skeptical at first, but Olivia Advances delivered. No credit check, no monthly payments, and they were upfront about everything.",
                 name: "Sarah K.",
                 location: "Phoenix, AZ",
               },
@@ -319,24 +318,24 @@ export default function CallCashHome() {
           <div className="mt-12 space-y-4">
             {[
               {
-                q: "What is a TCPA cash advance?",
-                a: "It's pre-settlement funding on a Telephone Consumer Protection Act case. If a company illegally spammed your phone, Call Cash can advance you money now against your potential recovery — up to $1,000 per violation, subject to underwriting.",
+                q: "How much can I receive?",
+                a: "Depending on the details of your case, you may qualify for a cash advance between $500 and $25,000. Our chatbot Olivia can give you an instant estimate.",
               },
               {
-                q: "How much can I get?",
-                a: "After underwriting, you may qualify for up to $1,000 per violation. The total depends on how many illegal messages you received and the strength of your case. It's an estimate, not a guaranteed amount.",
+                q: "Do I need a lawyer?",
+                a: "While having an attorney is not required to apply, it can strengthen your case and potentially increase the amount you qualify for. We can also help connect you with an attorney.",
               },
               {
-                q: "How fast is funding?",
-                a: "Our underwriting team typically makes a funding decision within 48 hours. Once approved, we work to get your cash to you quickly.",
+                q: "What if I lose my case?",
+                a: "If your case doesn't result in a settlement or verdict, you owe us nothing. Our cash advances are completely non-recourse — zero risk to you.",
               },
               {
-                q: "What if my case doesn't win?",
-                a: "Our advances are non-recourse. If your case doesn't result in a recovery, you owe us nothing — there's zero risk to you.",
+                q: "How fast can I get my cash advance?",
+                a: "Once approved, many clients receive their cash advance within 24 hours. In some cases, it can be even faster.",
               },
               {
-                q: "Is this a loan?",
-                a: "No. A cash advance is not a loan. There's no credit check and no monthly payments. It's repaid only out of a successful recovery on your case.",
+                q: "Is there a credit check?",
+                a: "No. We do not run credit checks. Your approval is based solely on the merits of your case, not your credit score.",
               },
             ].map((faq) => (
               <details
@@ -362,17 +361,17 @@ export default function CallCashHome() {
       <section className="relative z-10 border-t border-gray-100 bg-gradient-to-b from-gray-50/50 to-white py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-            Need Cash Now? Don&apos;t Wait to Settle.
+            Ready to Get Your Cash Advance?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-gray-500">
-            Chat with Callie to find out what advance you could qualify for on your TCPA case. It&apos;s fast, free, and comes with zero obligation.
+            Chat with Olivia now to find out how much you qualify for. It&apos;s fast, free, and comes with zero obligation.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <button
               onClick={openChat}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
             >
-              Chat with Callie
+              Chat with Olivia
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -394,21 +393,21 @@ export default function CallCashHome() {
       <footer className="relative z-10 border-t border-gray-100 py-12">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <span className="text-sm font-semibold text-gray-900">Call Cash</span>
+            <span className="text-sm font-semibold text-gray-900">Olivia Advances</span>
             <a href="tel:+19543200708" className="text-sm text-gray-500 hover:text-gray-700">(954) 320-0708</a>
             <div className="flex items-center gap-4">
-              <a href="/call-cash/terms" className="text-xs text-gray-500 hover:text-gray-900">Terms &amp; Conditions</a>
-              <a href="/call-cash/privacy" className="text-xs text-gray-500 hover:text-gray-900">Privacy Policy</a>
+              <a href="/car-accident/terms" className="text-xs text-gray-500 hover:text-gray-900">Terms &amp; Conditions</a>
+              <a href="/car-accident/privacy" className="text-xs text-gray-500 hover:text-gray-900">Privacy Policy</a>
             </div>
             <p className="text-xs text-gray-400">
-              &copy; {new Date().getFullYear()} Call Cash. All rights reserved. This is not a loan. Cash advances are non-recourse and subject to underwriting. Estimates are not a guarantee of funding.
+              &copy; {new Date().getFullYear()} Olivia Advances. All rights reserved. This is not a loan. Cash advances are non-recourse.
             </p>
           </div>
         </div>
       </footer>
 
       {/* Chatbot */}
-      <CallCashChatbot isOpen={chatOpen} setIsOpen={setChatOpen} />
+      <Chatbot isOpen={chatOpen} setIsOpen={setChatOpen} />
     </div>
   );
 }

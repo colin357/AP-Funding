@@ -3,7 +3,7 @@ import LegalPage from "@/components/LegalPage";
 import { getPrivacyContent, LAST_UPDATED, type BrandConfig } from "@/lib/legalContent";
 
 const cfg: BrandConfig = {
-  brand: "Olivia Advances",
+  brand: "Call Cash",
   phone: "(954) 320-0708",
   phoneHref: "tel:+19543200708",
   homeHref: "/",
@@ -12,10 +12,10 @@ const cfg: BrandConfig = {
 };
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Olivia Advances",
+  title: "Privacy Policy | Call Cash",
 };
 
-export default function PrivacyPage() {
+export default function CallCashPrivacyPage() {
   const { intro, sections } = getPrivacyContent(cfg);
   return (
     <LegalPage
