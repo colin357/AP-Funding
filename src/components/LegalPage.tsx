@@ -81,7 +81,7 @@ export default function LegalPage({
                         key={bi}
                         className="flex items-start gap-2 text-sm leading-relaxed text-gray-600"
                       >
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-400" />
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-400" />
                         <span>{b}</span>
                       </li>
                     ))}

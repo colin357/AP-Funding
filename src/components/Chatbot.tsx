@@ -248,7 +248,7 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
       {/* Chat toggle button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-blue-500 shadow-lg shadow-blue-500/25 transition-all hover:scale-105 hover:shadow-blue-500/40 cursor-pointer"
+        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-green-600 to-green-500 shadow-lg shadow-green-500/25 transition-all hover:scale-105 hover:shadow-green-500/40 cursor-pointer"
         aria-label="Open chat"
       >
         {isOpen ? (
@@ -272,16 +272,16 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 flex h-[550px] w-[400px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-black/10 animate-fade-in-up">
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-4">
+          <div className="flex items-center gap-3 border-b border-gray-100 bg-gradient-to-r from-green-600 to-green-500 px-5 py-4">
             <div className="relative">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-sm font-bold text-white">
                 O
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-blue-500 bg-green-400" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-green-500 bg-green-400" />
             </div>
             <div className="flex-1">
               <h3 className="text-sm font-semibold text-white">Olivia</h3>
-              <p className="text-xs text-blue-100">Olivia Advances Assistant</p>
+              <p className="text-xs text-green-100">Olivia Advances Assistant</p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -303,14 +303,14 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-blue-600 text-white rounded-br-md"
+                      ? "bg-green-600 text-white rounded-br-md"
                       : "bg-white text-gray-700 rounded-bl-md shadow-sm border border-gray-100"
                   }`}
                 >
                   {msg.text}
                   {msg.isEstimate && msg.estimateData && (
-                    <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50 p-4">
-                      <div className="mb-1 text-xs font-medium uppercase tracking-wider text-blue-600">
+                    <div className="mt-3 rounded-xl border border-green-200 bg-green-50 p-4">
+                      <div className="mb-1 text-xs font-medium uppercase tracking-wider text-green-600">
                         Estimated Cash Advance
                       </div>
                       <div className="text-2xl font-bold text-gray-900">
@@ -318,7 +318,7 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
                       </div>
                       <div className="mt-2 space-y-1">
                         {msg.estimateData.factors.map((f, fi) => (
-                          <div key={fi} className="flex items-start gap-1.5 text-xs text-blue-700">
+                          <div key={fi} className="flex items-start gap-1.5 text-xs text-green-700">
                             <span className="mt-0.5">&#10003;</span>
                             <span>{f}</span>
                           </div>
@@ -336,9 +336,9 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
             {isTyping && (
               <div className="flex justify-start animate-fade-in-up">
                 <div className="flex items-center gap-1 rounded-2xl rounded-bl-md bg-white px-4 py-3 shadow-sm border border-gray-100">
-                  <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
-                  <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
-                  <div className="typing-dot h-2 w-2 rounded-full bg-blue-400" />
+                  <div className="typing-dot h-2 w-2 rounded-full bg-green-400" />
+                  <div className="typing-dot h-2 w-2 rounded-full bg-green-400" />
+                  <div className="typing-dot h-2 w-2 rounded-full bg-green-400" />
                 </div>
               </div>
             )}
@@ -351,7 +351,7 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleLawyerResponse(true)}
-                  className="flex-1 rounded-xl bg-blue-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 cursor-pointer"
+                  className="flex-1 rounded-xl bg-green-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-500 cursor-pointer"
                 >
                   Yes, I have an attorney
                 </button>
@@ -404,13 +404,13 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
                               ? "Describe your injuries..."
                               : "Type a message..."
                   }
-                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-blue-400 focus:bg-white"
+                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-green-400 focus:bg-white"
                   disabled={isTyping}
                 />
                 <button
                   type="submit"
                   disabled={isTyping || !input.trim()}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white transition-colors hover:bg-blue-500 disabled:opacity-30 cursor-pointer"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-600 text-white transition-colors hover:bg-green-500 disabled:opacity-30 cursor-pointer"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
