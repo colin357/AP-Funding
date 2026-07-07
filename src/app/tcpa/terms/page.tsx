@@ -9,6 +9,7 @@ const cfg: BrandConfig = {
   homeHref: "/tcpa",
   kind: "lawfirm",
   matter: "your TCPA claim",
+  governingState: "Pennsylvania",
 };
 
 export const metadata: Metadata = {

@@ -10,6 +10,8 @@ export interface BrandConfig {
   kind: "lawfirm" | "funding";
   // Short description of what the client is seeking (used in copy).
   matter: string; // e.g. "your TCPA claim", "your case", "a cash advance"
+  // Governing-law state for the Terms. Defaults to "Florida".
+  governingState?: string;
 }
 
 export const LAST_UPDATED = "July 7, 2026";
@@ -115,6 +117,7 @@ export function getTermsContent(cfg: BrandConfig): {
   intro: string[];
   sections: LegalSection[];
 } {
+  const state = cfg.governingState ?? "Florida";
   const aboutSection: LegalSection =
     cfg.kind === "lawfirm"
       ? {
@@ -205,7 +208,7 @@ export function getTermsContent(cfg: BrandConfig): {
       {
         heading: "Governing Law",
         body: [
-          "These Terms are governed by the laws of the State of Florida, without regard to its conflict-of-laws principles. Any dispute arising under these Terms will be subject to the exclusive jurisdiction of the state and federal courts located in Florida.",
+          `These Terms are governed by the laws of the State of ${state}, without regard to its conflict-of-laws principles. Any dispute arising under these Terms will be subject to the exclusive jurisdiction of the state and federal courts located in ${state}.`,
         ],
       },
       {
