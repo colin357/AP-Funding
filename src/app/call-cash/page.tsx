@@ -20,9 +20,12 @@ export default function CallCashHome() {
       {/* Navigation */}
       <nav className="relative z-10 border-b border-border/50 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold tracking-tight text-gray-900">
-            Call Cash
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/lindner-law-group.svg"
+            alt="Lindner Law Group"
+            className="h-10 w-auto"
+          />
           <div className="hidden items-center gap-8 md:flex">
             <a href="#how-it-works" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               How It Works
