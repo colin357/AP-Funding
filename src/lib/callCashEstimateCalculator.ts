@@ -1,4 +1,4 @@
-export interface TcpaLeadData {
+export interface CallCashLeadData {
   name: string;
   email: string;
   phone: string;
@@ -14,27 +14,27 @@ export interface TcpaLeadData {
   dncRegistered: boolean;
 }
 
-export interface TcpaEstimateResult {
+export interface CallCashEstimateResult {
   low: number;
   high: number;
   factors: string[];
 }
 
-// Per the TCPA, each unsolicited text/call can carry statutory damages of
-// $500 (negligent) up to $1,500 (willful or knowing) per violation.
-const PER_MESSAGE_LOW = 500;
-const PER_MESSAGE_HIGH = 1500;
+// Call Cash provides a pre-settlement cash advance on a TCPA case of up to
+// $1,000 per violation, subject to underwriting. Each unwanted text or call
+// can count as a separate violation.
+const PER_VIOLATION_HIGH = 1000;
+const PER_VIOLATION_LOW = 250;
 
-const MAX_ESTIMATE = 500000;
+const MAX_ADVANCE = 25000;
 
 function parseMessageCount(raw: string): number {
   if (!raw) return 0;
-  // Pull the first number out of free-form text (handles "about 20", "20-30", "a dozen-ish").
+  // Pull the first number out of free-form text (handles "about 20", "20-30").
   const match = raw.replace(/,/g, "").match(/\d+/);
   if (match) {
     return parseInt(match[0], 10);
   }
-  // Rough fallback for common written estimates.
   const lower = raw.toLowerCase();
   if (lower.includes("dozen")) return 12;
   if (lower.includes("hundred")) return 100;
@@ -56,27 +56,26 @@ function indicatesYes(raw: string): boolean {
   );
 }
 
-export function calculateTcpaEstimate(
-  data: TcpaLeadData
-): TcpaEstimateResult {
+export function calculateCallCashEstimate(
+  data: CallCashLeadData
+): CallCashEstimateResult {
   const factors: string[] = [];
 
-  const messages = Math.max(1, parseMessageCount(data.messageCount));
+  const violations = Math.max(1, parseMessageCount(data.messageCount));
 
-  let low = messages * PER_MESSAGE_LOW;
-  let high = messages * PER_MESSAGE_HIGH;
+  let low = violations * PER_VIOLATION_LOW;
+  let high = violations * PER_VIOLATION_HIGH;
 
   factors.push(
-    `Approximately ${messages} message${messages === 1 ? "" : "s"} at a potential $500–$1,500 each under the TCPA (not guaranteed)`
+    `Approximately ${violations} violation${violations === 1 ? "" : "s"} at up to $1,000 each, subject to underwriting`
   );
 
-  // Asking the company to stop and being texted anyway points to willful
-  // violations, which carry the higher per-message damages.
+  // Asking the company to stop and being contacted anyway points to willful
+  // violations, which tend to support a stronger case and a larger advance.
   if (indicatesYes(data.askedToStop)) {
-    high = messages * PER_MESSAGE_HIGH;
-    low = Math.round(messages * 750);
+    low = Math.round(violations * 400);
     factors.push(
-      "You asked them to stop — continued contact may count as willful violations"
+      "You asked them to stop — continued contact may strengthen your case"
     );
   }
 
@@ -87,8 +86,10 @@ export function calculateTcpaEstimate(
     );
   }
 
-  const lowClamped = Math.max(PER_MESSAGE_LOW, Math.min(MAX_ESTIMATE, low));
-  const highClamped = Math.max(PER_MESSAGE_LOW, Math.min(MAX_ESTIMATE, high));
+  factors.push("Funding decisions are made within 48 hours of underwriting");
+
+  const lowClamped = Math.max(PER_VIOLATION_LOW, Math.min(MAX_ADVANCE, low));
+  const highClamped = Math.max(PER_VIOLATION_LOW, Math.min(MAX_ADVANCE, high));
 
   return {
     low: Math.round(lowClamped / 100) * 100,
