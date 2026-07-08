@@ -12,9 +12,9 @@ export default function Home() {
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground grid-pattern">
       {/* Ambient glow effects */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-blue-500/8 blur-3xl animate-glow" />
-        <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-indigo-500/6 blur-3xl animate-glow" />
-        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-blue-400/5 blur-3xl animate-glow" />
+        <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-green-500/8 blur-3xl animate-glow" />
+        <div className="absolute top-1/3 -right-40 h-96 w-96 rounded-full bg-emerald-500/6 blur-3xl animate-glow" />
+        <div className="absolute -bottom-40 left-1/3 h-96 w-96 rounded-full bg-green-400/5 blur-3xl animate-glow" />
       </div>
 
       {/* Navigation */}
@@ -42,7 +42,7 @@ export default function Home() {
           </div>
           <button
             onClick={openChat}
-            className="rounded-full bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-600/25 cursor-pointer"
+            className="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-green-500 hover:shadow-lg hover:shadow-green-600/25 cursor-pointer"
           >
             Get Your Advance
           </button>
@@ -53,13 +53,13 @@ export default function Home() {
       <section className="relative z-10 mx-auto max-w-7xl px-6 pt-20 pb-32 lg:pt-32 lg:pb-40">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-sm text-blue-600">
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-sm text-green-600">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
               Up to $1,000 Per Violation — Funded in 48 Hours
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Cash Advances on Your{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                 TCPA
               </span>{" "}
               Case
@@ -73,7 +73,7 @@ export default function Home() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <button
                 onClick={openChat}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-green-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-600/25 transition-all hover:shadow-green-600/40 hover:brightness-110 cursor-pointer"
               >
                 See What You Qualify For
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,10 +113,10 @@ export default function Home() {
           {/* Hero visual — abstract card */}
           <div className="relative hidden lg:block">
             <div className="relative mx-auto w-full max-w-md">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-100 to-indigo-100 blur-xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-green-100 to-emerald-100 blur-xl" />
               <div className="relative rounded-3xl border border-gray-200 bg-white/90 p-8 backdrop-blur-xl shadow-lg">
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-green-700">
                     <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -141,7 +141,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center justify-between rounded-2xl bg-gray-50 px-4 py-3">
                     <span className="text-sm text-gray-500">Underwriting</span>
-                    <span className="text-sm font-semibold text-blue-600">Within 48 Hours</span>
+                    <span className="text-sm font-semibold text-green-600">Within 48 Hours</span>
                   </div>
                 </div>
               </div>
@@ -193,12 +193,12 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-blue-200 hover:shadow-md"
+                className="group relative rounded-2xl border border-gray-200 bg-white p-8 transition-all hover:border-green-200 hover:shadow-md"
               >
-                <div className="absolute -top-3 left-6 rounded-full bg-blue-600 px-3 py-0.5 text-xs font-bold text-white">
+                <div className="absolute -top-3 left-6 rounded-full bg-green-600 px-3 py-0.5 text-xs font-bold text-white">
                   {item.step}
                 </div>
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-100">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600 transition-colors group-hover:bg-green-100">
                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {item.icon}
                   </svg>
@@ -247,10 +247,10 @@ export default function Home() {
             ].map((benefit) => (
               <div
                 key={benefit.title}
-                className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-blue-200 hover:shadow-md"
+                className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-green-200 hover:shadow-md"
               >
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
-                  <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-green-50">
+                  <svg className="h-5 w-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={benefit.icon} />
                   </svg>
                 </div>
@@ -344,7 +344,7 @@ export default function Home() {
             ].map((faq) => (
               <details
                 key={faq.q}
-                className="group rounded-2xl border border-gray-200 bg-white transition-colors open:border-blue-200"
+                className="group rounded-2xl border border-gray-200 bg-white transition-colors open:border-green-200"
               >
                 <summary className="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-medium text-gray-900">
                   {faq.q}
@@ -373,7 +373,7 @@ export default function Home() {
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <button
               onClick={openChat}
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-600/40 hover:brightness-110 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-green-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-green-600/25 transition-all hover:shadow-green-600/40 hover:brightness-110 cursor-pointer"
             >
               Chat with Callie
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
