@@ -32,11 +32,9 @@ export default function LegalPage({
       {/* Navigation */}
       <nav className="relative z-10 border-b border-border/50 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <Link
-            href={homeHref}
-            className="text-xl font-bold tracking-tight text-gray-900"
-          >
-            {brand}
+          <Link href={homeHref} className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-header.png" alt="Call Cash" className="h-12 w-auto" />
           </Link>
           <Link
             href={homeHref}
