@@ -61,11 +61,10 @@ export default function Home() {
               Up to $1,000 Per Illegal Call or Text — Funded in 48 Hours
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              Cash Advances on Your{" "}
+              Cash Advance for Your{" "}
               <span className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-                TCPA
-              </span>{" "}
-              Case
+                Illegal Calls or Texts
+              </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
               Don&apos;t wait on your spam-text or robocall case to settle. Call
