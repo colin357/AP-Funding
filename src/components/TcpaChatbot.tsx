@@ -106,7 +106,12 @@ export default function TcpaChatbot({ isOpen, setIsOpen }: TcpaChatbotProps) {
   const validateEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const validatePhone = (phone: string) => /^[\d\s\-\(\)\+]{7,}$/.test(phone);
+  const validatePhone = (phone: string) => {
+    // Accept international formats (e.g. +44 20 7946 0958, +91 98765-43210):
+    // strip everything but digits and check against the E.164 length range.
+    const digits = phone.replace(/[^\d]/g, "");
+    return digits.length >= 7 && digits.length <= 15;
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

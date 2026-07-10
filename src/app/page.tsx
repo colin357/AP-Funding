@@ -58,7 +58,7 @@ export default function Home() {
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-sm text-green-600">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              Up to $1,000 Per Violation — Funded in 48 Hours
+              Up to $1,000 Per Illegal Call or Text — Funded in 48 Hours
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Cash Advances on Your{" "}
@@ -69,8 +69,8 @@ export default function Home() {
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
               Don&apos;t wait on your spam-text or robocall case to settle. Call
-              Cash gets you money now — up to $1,000 per violation after
-              underwriting, with funding decisions in as little as 48 hours. It&apos;s
+              Cash gets you money now — up to $1,000 per illegal call or text
+              after underwriting, with funding decisions in as little as 48 hours. It&apos;s
               non-recourse, so you only pay it back if your case wins.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -98,7 +98,7 @@ export default function Home() {
             <div className="mt-12 flex items-center gap-8">
               <div>
                 <div className="text-2xl font-bold text-gray-900">Up to $1,000</div>
-                <div className="text-xs text-gray-400">Per Violation</div>
+                <div className="text-xs text-gray-400">Per Illegal Call or Text</div>
               </div>
               <div className="h-8 w-px bg-gray-200" />
               <div>
@@ -126,7 +126,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-sm font-medium text-gray-400">Potential Advance</div>
-                    <div className="text-2xl font-bold text-gray-900">Up to $1,000 / violation</div>
+                    <div className="text-2xl font-bold text-gray-900">Up to $1,000 / illegal call or text</div>
                   </div>
                 </div>
                 <div className="space-y-4">
