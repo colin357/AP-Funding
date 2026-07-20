@@ -27,6 +27,99 @@ interface ChatbotProps {
   setIsOpen: (open: boolean) => void;
 }
 
+const formatDateISO = (date: Date) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+const formatDateDisplay = (date: Date) =>
+  date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+
+const MONTH_NAMES = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function DatePicker({ onSelect }: { onSelect: (date: Date) => void }) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const [viewDate, setViewDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
+
+  const year = viewDate.getFullYear();
+  const month = viewDate.getMonth();
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const canGoNext =
+    new Date(year, month + 1, 1) <= new Date(today.getFullYear(), today.getMonth(), 1);
+
+  const cells: (number | null)[] = [
+    ...Array(firstWeekday).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
+  ];
+
+  return (
+    <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+      <div className="mb-2 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => setViewDate(new Date(year, month - 1, 1))}
+          className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200 cursor-pointer"
+          aria-label="Previous month"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <span className="text-sm font-medium text-gray-700">
+          {MONTH_NAMES[month]} {year}
+        </span>
+        <button
+          type="button"
+          onClick={() => canGoNext && setViewDate(new Date(year, month + 1, 1))}
+          disabled={!canGoNext}
+          className="flex h-7 w-7 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-200 disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer"
+          aria-label="Next month"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-gray-400">
+        {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+          <div key={i}>{d}</div>
+        ))}
+      </div>
+      <div className="mt-1 grid grid-cols-7 gap-1">
+        {cells.map((day, i) => {
+          if (day === null) return <div key={i} />;
+          const cellDate = new Date(year, month, day);
+          const isFuture = cellDate > today;
+          const isToday = cellDate.getTime() === today.getTime();
+          return (
+            <button
+              key={i}
+              type="button"
+              disabled={isFuture}
+              onClick={() => onSelect(cellDate)}
+              className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs transition-colors ${
+                isFuture
+                  ? "text-gray-300 cursor-not-allowed"
+                  : "text-gray-700 hover:bg-green-600 hover:text-white cursor-pointer"
+              } ${isToday && !isFuture ? "border border-green-400" : ""}`}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
   const [step, setStep] = useState<Step>("greeting");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -56,7 +149,7 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
   }, [isOpen, hasGreeted]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current && step !== "hasLawyer" && step !== "calculating" && step !== "estimate" && step !== "done") {
+    if (isOpen && inputRef.current && step !== "hasLawyer" && step !== "accidentDate" && step !== "calculating" && step !== "estimate" && step !== "done") {
       inputRef.current.focus();
     }
   }, [isOpen, step, isTyping]);
@@ -133,30 +226,10 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
         }
         setLeadData((prev) => ({ ...prev, phone: userInput }));
         addBotMessage(
-          "Perfect! Now, when did the car accident happen? You can type the date in any format (e.g., 01/15/2025 or January 15, 2025).",
+          "Perfect! Now, when did the car accident happen? Please select the date below.",
           "accidentDate"
         );
         break;
-
-      case "accidentDate": {
-        const parsed = new Date(userInput);
-        if (isNaN(parsed.getTime())) {
-          addBotMessage(
-            "I couldn't quite understand that date. Could you try again? Something like MM/DD/YYYY works great.",
-            "accidentDate"
-          );
-          return;
-        }
-        setLeadData((prev) => ({
-          ...prev,
-          accidentDate: parsed.toISOString().split("T")[0],
-        }));
-        addBotMessage(
-          "Thank you. Could you briefly describe the injuries you sustained from the accident? The more detail you provide, the more accurate your estimate will be.",
-          "injuries"
-        );
-        break;
-      }
 
       case "injuries":
         if (userInput.length < 5) {
@@ -176,6 +249,17 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
       default:
         break;
     }
+  };
+
+  const handleDateSelected = (date: Date) => {
+    if (isTyping) return;
+    const iso = formatDateISO(date);
+    setMessages((prev) => [...prev, { role: "user", text: formatDateDisplay(date) }]);
+    setLeadData((prev) => ({ ...prev, accidentDate: iso }));
+    addBotMessage(
+      "Thank you. Could you briefly describe the injuries you sustained from the accident? The more detail you provide, the more accurate your estimate will be.",
+      "injuries"
+    );
   };
 
   const handleLawyerResponse = (hasLawyer: boolean) => {
@@ -367,6 +451,8 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
                   No, not yet
                 </button>
               </div>
+            ) : step === "accidentDate" ? (
+              <DatePicker onSelect={handleDateSelected} />
             ) : step === "done" ? (
               <div className="flex flex-col gap-2">
                 <a
@@ -403,11 +489,9 @@ export default function Chatbot({ isOpen, setIsOpen }: ChatbotProps) {
                         ? "your@email.com"
                         : step === "phone"
                           ? "(555) 123-4567"
-                          : step === "accidentDate"
-                            ? "MM/DD/YYYY"
-                            : step === "injuries"
-                              ? "Describe your injuries..."
-                              : "Type a message..."
+                          : step === "injuries"
+                            ? "Describe your injuries..."
+                            : "Type a message..."
                   }
                   className="flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition-colors focus:border-green-400 focus:bg-white"
                   disabled={isTyping}
