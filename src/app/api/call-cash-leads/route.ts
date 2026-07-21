@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
 
     // Send lead data to Zapier webhook
     try {
-      await fetch("https://hooks.zapier.com/hooks/catch/17690982/u0uhrm5/", {
+      await fetch("https://hooks.zapier.com/hooks/catch/17690982/441qdo5/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
