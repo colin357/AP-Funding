@@ -11,17 +11,13 @@ type Step =
   | "greeting"
   | "phoneReceived"
   | "callOrText"
+  | "companyPhone"
   | "phoneDuration"
   | "location"
-  | "spamTimeframe"
   | "customerHistory"
-  | "askedToStop"
   | "messageCount"
-  | "companyPhone"
-  | "dncRegistered"
   | "name"
   | "email"
-  | "phone"
   | "consent"
   | "calculating"
   | "estimate"
@@ -75,7 +71,6 @@ export default function CallCashChatbot({
       isOpen &&
       inputRef.current &&
       step !== "callOrText" &&
-      step !== "dncRegistered" &&
       step !== "consent" &&
       step !== "calculating" &&
       step !== "estimate" &&
@@ -137,24 +132,24 @@ export default function CallCashChatbot({
         addBotMessage("Thanks! Was it a call or a text?", "callOrText");
         break;
 
+      case "companyPhone":
+        setLeadData((prev) => ({ ...prev, companyPhone: userInput }));
+        addBotMessage(
+          "Got it. How long have you had the number they've been contacting you at?",
+          "phoneDuration"
+        );
+        break;
+
       case "phoneDuration":
         setLeadData((prev) => ({ ...prev, phoneDuration: userInput }));
         addBotMessage(
-          "Got it. What city, state, and county do you live in?",
+          "Thanks. What city, state, and county do you live in?",
           "location"
         );
         break;
 
       case "location":
         setLeadData((prev) => ({ ...prev, location: userInput }));
-        addBotMessage(
-          "Thank you. When were you receiving the spam from this company specifically? Please give me a rough time frame (for example, “March 2025 to now”).",
-          "spamTimeframe"
-        );
-        break;
-
-      case "spamTimeframe":
-        setLeadData((prev) => ({ ...prev, spamTimeframe: userInput }));
         addBotMessage(
           "Have you ever been a customer of this company? And do you have any idea why they might be contacting you?",
           "customerHistory"
@@ -164,14 +159,6 @@ export default function CallCashChatbot({
       case "customerHistory":
         setLeadData((prev) => ({ ...prev, customerHistory: userInput }));
         addBotMessage(
-          "Did you ask this company to stop messaging you?\n\nIf you did, please save any screenshots — our team will ask for them later. If you haven't, reply STOP to them, and if they keep texting you, save those screenshots too.",
-          "askedToStop"
-        );
-        break;
-
-      case "askedToStop":
-        setLeadData((prev) => ({ ...prev, askedToStop: userInput }));
-        addBotMessage(
           "Understood. What's your best estimate for how many messages you received from this company?",
           "messageCount"
         );
@@ -180,16 +167,8 @@ export default function CallCashChatbot({
       case "messageCount":
         setLeadData((prev) => ({ ...prev, messageCount: userInput }));
         addBotMessage(
-          "Almost there. What is the phone number of the company that sent you the spam messages?",
-          "companyPhone"
-        );
-        break;
-
-      case "companyPhone":
-        setLeadData((prev) => ({ ...prev, companyPhone: userInput }));
-        addBotMessage(
-          "One quick yes-or-no: are you registered with the National Do Not Call Registry?",
-          "dncRegistered"
+          "Perfect — last few details so we can follow up. What's your name?",
+          "name"
         );
         break;
 
@@ -211,26 +190,10 @@ export default function CallCashChatbot({
         }
         setLeadData((prev) => ({ ...prev, email: userInput }));
         addBotMessage(
-          "Got it! And what's the best phone number to reach you at?",
-          "phone"
-        );
-        break;
-
-      case "phone": {
-        if (!validatePhone(userInput)) {
-          addBotMessage(
-            "That doesn't look like a valid phone number. Could you try again with your full number?",
-            "phone"
-          );
-          return;
-        }
-        setLeadData((prev) => ({ ...prev, phone: userInput }));
-        addBotMessage(
           "Last thing before your estimate: do you agree to be contacted by Call Cash about your advance — by phone, text, and email, including through automated or AI-assisted systems? Message and data rates may apply, and you can reply STOP at any time to opt out.",
           "consent"
         );
         break;
-      }
 
       default:
         break;
@@ -242,26 +205,8 @@ export default function CallCashChatbot({
     setMessages((prev) => [...prev, { role: "user", text: value }]);
     setLeadData((prev) => ({ ...prev, callOrText: value }));
     addBotMessage(
-      "Got it. How long have you had that phone number?",
-      "phoneDuration"
-    );
-  };
-
-  const handleDncResponse = (dncRegistered: boolean) => {
-    if (isTyping) return;
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "user",
-        text: dncRegistered
-          ? "Yes, I'm registered"
-          : "No, I'm not registered",
-      },
-    ]);
-    setLeadData((prev) => ({ ...prev, dncRegistered }));
-    addBotMessage(
-      "Perfect — last few details so we can follow up. What's your name?",
-      "name"
+      "Thanks. What is the phone number of the company that sent you the spam messages? This is one of the most important details for us.",
+      "companyPhone"
     );
   };
 
@@ -278,17 +223,16 @@ export default function CallCashChatbot({
     const finalData: CallCashLeadData = {
       name: leadData.name || "",
       email: leadData.email || "",
-      phone: leadData.phone || "",
+      // We only collect one number from the lead — the one that received the
+      // messages — so it doubles as their contact number.
+      phone: leadData.phoneReceived || "",
       phoneReceived: leadData.phoneReceived || "",
       callOrText: leadData.callOrText || "",
       phoneDuration: leadData.phoneDuration || "",
       location: leadData.location || "",
-      spamTimeframe: leadData.spamTimeframe || "",
       customerHistory: leadData.customerHistory || "",
-      askedToStop: leadData.askedToStop || "",
       messageCount: leadData.messageCount || "",
       companyPhone: leadData.companyPhone || "",
-      dncRegistered: leadData.dncRegistered ?? false,
       consent,
     };
 
@@ -346,26 +290,20 @@ export default function CallCashChatbot({
     switch (s) {
       case "phoneReceived":
         return "(555) 123-4567";
+      case "companyPhone":
+        return "Company's number";
       case "phoneDuration":
         return "e.g. 5 years";
       case "location":
         return "City, State, County";
-      case "spamTimeframe":
-        return "e.g. March 2025 to now";
       case "customerHistory":
         return "Were you ever a customer?";
-      case "askedToStop":
-        return "Did you ask them to stop?";
       case "messageCount":
         return "e.g. about 20";
-      case "companyPhone":
-        return "Company's number";
       case "name":
         return "Type your name...";
       case "email":
         return "your@email.com";
-      case "phone":
-        return "(555) 123-4567";
       default:
         return "Type a message...";
     }
@@ -487,21 +425,6 @@ export default function CallCashChatbot({
                   </button>
                 ))}
               </div>
-            ) : step === "dncRegistered" ? (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleDncResponse(true)}
-                  className="flex-1 rounded-xl bg-green-600 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-500 cursor-pointer"
-                >
-                  Yes, I&apos;m registered
-                </button>
-                <button
-                  onClick={() => handleDncResponse(false)}
-                  className="flex-1 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 cursor-pointer"
-                >
-                  No / Not sure
-                </button>
-              </div>
             ) : step === "consent" ? (
               <div className="flex gap-2">
                 <button
@@ -543,7 +466,7 @@ export default function CallCashChatbot({
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
                   ref={inputRef}
-                  type={step === "email" ? "email" : step === "phone" || step === "phoneReceived" || step === "companyPhone" ? "tel" : "text"}
+                  type={step === "email" ? "email" : step === "phoneReceived" || step === "companyPhone" ? "tel" : "text"}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={placeholderFor(step)}
