@@ -6,12 +6,9 @@ export interface CallCashLeadData {
   callOrText: string;
   phoneDuration: string;
   location: string;
-  spamTimeframe: string;
   customerHistory: string;
-  askedToStop: string;
   messageCount: string;
   companyPhone: string;
-  dncRegistered: boolean;
   consent: boolean;
 }
 
@@ -44,19 +41,6 @@ function parseMessageCount(raw: string): number {
   return 5;
 }
 
-function indicatesYes(raw: string): boolean {
-  if (!raw) return false;
-  const lower = raw.toLowerCase();
-  return (
-    lower.startsWith("y") ||
-    lower.includes("yes") ||
-    lower.includes("told them") ||
-    lower.includes("asked them") ||
-    lower.includes("replied stop") ||
-    lower.includes("said stop")
-  );
-}
-
 export function calculateCallCashEstimate(
   data: CallCashLeadData
 ): CallCashEstimateResult {
@@ -64,28 +48,12 @@ export function calculateCallCashEstimate(
 
   const violations = Math.max(1, parseMessageCount(data.messageCount));
 
-  let low = violations * PER_VIOLATION_LOW;
-  let high = violations * PER_VIOLATION_HIGH;
+  const low = violations * PER_VIOLATION_LOW;
+  const high = violations * PER_VIOLATION_HIGH;
 
   factors.push(
     `Approximately ${violations} violation${violations === 1 ? "" : "s"} at up to $1,000 each, subject to underwriting`
   );
-
-  // Asking the company to stop and being contacted anyway points to willful
-  // violations, which tend to support a stronger case and a larger advance.
-  if (indicatesYes(data.askedToStop)) {
-    low = Math.round(violations * 400);
-    factors.push(
-      "You asked them to stop — continued contact may strengthen your case"
-    );
-  }
-
-  // Registration on the National Do Not Call Registry strengthens the claim.
-  if (data.dncRegistered) {
-    factors.push(
-      "Your number is on the National Do Not Call Registry — this strengthens your case"
-    );
-  }
 
   factors.push("Funding decisions are made within 48 hours of underwriting");
 
