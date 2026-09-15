@@ -39,6 +39,9 @@ export default function Home() {
             <a href="/car-accident" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               Car Accident Advances
             </a>
+            <a href="/meta-glasses" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
+              Meta Glasses Advances
+            </a>
             <a href="tel:+19543200708" className="text-sm text-gray-500 transition-colors hover:text-gray-900">
               (954) 320-0708
             </a>
