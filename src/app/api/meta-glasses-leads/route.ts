@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      await fetch("https://hooks.zapier.com/hooks/catch/17690982/u0uhrm5/", {
+      await fetch("https://services.leadconnectorhq.com/hooks/8fXIfEtviATXY6g4R9f9/webhook-trigger/b53baec8-00ec-43e9-9350-f2a947deba1c", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
           maxAdvance,
         }),
       });
-    } catch (zapierError) {
-      console.error("Failed to send Meta glasses lead to Zapier:", zapierError);
+    } catch (webhookError) {
+      console.error("Failed to send Meta glasses lead to LeadConnector:", webhookError);
     }
 
     return NextResponse.json({ success: true });
