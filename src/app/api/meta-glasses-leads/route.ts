@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      await fetch("https://services.leadconnectorhq.com/hooks/8fXIfEtviATXY6g4R9f9/webhook-trigger/b53baec8-00ec-43e9-9350-f2a947deba1c", {
+      await fetch("https://services.leadconnectorhq.com/hooks/8fXIfEtviATXY6g4R9f9/webhook-trigger/a4c9a9e6-d0fe-431f-9231-4fed74fcf740", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
