@@ -61,7 +61,7 @@ export default function Home() {
           <div>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-sm text-green-600">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              Up to $1,000 Per Illegal Call or Text — Funded in 48 Hours
+              Get Up to $1,000 — Funded in 48 Hours
             </div>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               Cash Advance for Your{" "}
@@ -71,7 +71,7 @@ export default function Home() {
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
               Don&apos;t wait on your spam-text or robocall case to settle. Call
-              Cash gets you money now — up to $1,000 per illegal call or text
+              Cash gets you money now — up to $1,000 total
               after underwriting, with funding decisions in as little as 48 hours. It&apos;s
               non-recourse, so you only pay it back if your case wins.
             </p>
@@ -100,7 +100,7 @@ export default function Home() {
             <div className="mt-12 flex items-center gap-8">
               <div>
                 <div className="text-2xl font-bold text-gray-900">Up to $1,000</div>
-                <div className="text-xs text-gray-400">Per Illegal Call or Text</div>
+                <div className="text-xs text-gray-400">Cash Advance</div>
               </div>
               <div className="h-8 w-px bg-gray-200" />
               <div>
@@ -128,7 +128,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="text-sm font-medium text-gray-400">Potential Advance</div>
-                    <div className="text-2xl font-bold text-gray-900">Up to $1,000 / illegal call or text</div>
+                    <div className="text-2xl font-bold text-gray-900">Get Up to $1,000</div>
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -181,7 +181,7 @@ export default function Home() {
                 step: "02",
                 title: "Quick Underwriting",
                 description:
-                  "Our team reviews your case and makes a funding decision in as little as 48 hours — up to $1,000 per violation.",
+                  "Our team reviews your case and makes a funding decision in as little as 48 hours — up to $1,000 total.",
                 icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 ),
@@ -235,8 +235,8 @@ export default function Home() {
                 icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
               },
               {
-                title: "Up to $1,000 Per Violation",
-                description: "Every illegal text or call can be a violation. After underwriting, you may qualify for up to $1,000 each.",
+                title: "Get Up to $1,000",
+                description: "After underwriting, you may qualify for a cash advance of up to $1,000 on your TCPA case.",
                 icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
               },
               {
@@ -328,11 +328,11 @@ export default function Home() {
             {[
               {
                 q: "What is a TCPA cash advance?",
-                a: "It's pre-settlement funding on a Telephone Consumer Protection Act case. If a company illegally spammed your phone, Call Cash can advance you money now against your potential recovery — up to $1,000 per violation, subject to underwriting.",
+                a: "It's pre-settlement funding on a Telephone Consumer Protection Act case. If a company illegally spammed your phone, Call Cash can advance you money now against your potential recovery — up to $1,000 total, subject to underwriting.",
               },
               {
                 q: "How much can I get?",
-                a: "After underwriting, you may qualify for up to $1,000 per violation. The total depends on how many illegal messages you received and the strength of your case. It's an estimate, not a guaranteed amount.",
+                a: "After underwriting, you may qualify for up to $1,000 total. The amount depends on how many illegal messages you received and the strength of your case. It's an estimate, not a guaranteed amount.",
               },
               {
                 q: "How fast is funding?",

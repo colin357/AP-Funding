@@ -19,12 +19,12 @@ export interface CallCashEstimateResult {
 }
 
 // Call Cash provides a pre-settlement cash advance on a TCPA case of up to
-// $1,000 per violation, subject to underwriting. Each unwanted text or call
-// can count as a separate violation.
-const PER_VIOLATION_HIGH = 1000;
-const PER_VIOLATION_LOW = 250;
-
-const MAX_ADVANCE = 25000;
+// $1,000 total, subject to underwriting. More violations (unwanted texts or
+// calls) strengthen the case and push the estimate toward the cap.
+const MAX_ADVANCE = 1000;
+const MIN_ADVANCE = 250;
+const PER_VIOLATION_LOW = 100;
+const LOW_CAP = 750;
 
 function parseMessageCount(raw: string): number {
   if (!raw) return 0;
@@ -48,21 +48,21 @@ export function calculateCallCashEstimate(
 
   const violations = Math.max(1, parseMessageCount(data.messageCount));
 
-  const low = violations * PER_VIOLATION_LOW;
-  const high = violations * PER_VIOLATION_HIGH;
+  const low = Math.max(
+    MIN_ADVANCE,
+    Math.min(LOW_CAP, violations * PER_VIOLATION_LOW)
+  );
+  const high = MAX_ADVANCE;
 
   factors.push(
-    `Approximately ${violations} violation${violations === 1 ? "" : "s"} at up to $1,000 each, subject to underwriting`
+    `Approximately ${violations} violation${violations === 1 ? "" : "s"} reported — advances are up to $1,000 total, subject to underwriting`
   );
 
   factors.push("Funding decisions are made within 48 hours of underwriting");
 
-  const lowClamped = Math.max(PER_VIOLATION_LOW, Math.min(MAX_ADVANCE, low));
-  const highClamped = Math.max(PER_VIOLATION_LOW, Math.min(MAX_ADVANCE, high));
-
   return {
-    low: Math.round(lowClamped / 100) * 100,
-    high: Math.round(highClamped / 100) * 100,
+    low: Math.round(low / 50) * 50,
+    high,
     factors,
   };
 }

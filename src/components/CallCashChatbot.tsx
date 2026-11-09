@@ -36,7 +36,7 @@ interface CallCashChatbotProps {
 }
 
 const GREETING =
-  "Hi there! I'm Callie, your advance assistant at Call Cash.\n\nIf a company has been hitting your phone with spam texts or robocalls, you may have a TCPA case — and we can get you a cash advance on it now, up to $1,000 per violation after underwriting.\n\nI'll ask you a few quick questions to see what you could qualify for. First, what is the phone number that you received the messages at?";
+  "Hi there! I'm Callie, your advance assistant at Call Cash.\n\nIf a company has been hitting your phone with spam texts or robocalls, you may have a TCPA case — and we can get you a cash advance on it now, up to $1,000 after underwriting.\n\nI'll ask you a few quick questions to see what you could qualify for. First, what is the phone number that you received the messages at?";
 
 export default function CallCashChatbot({
   isOpen,
