@@ -100,6 +100,8 @@ export default function LegalPage({
           </a>
           <p className="text-xs text-gray-400">
             &copy; {new Date().getFullYear()} {brand}. All rights reserved.
+            {" "}Designed by{" "}
+            <a href="https://ownitsocial.com" target="_blank" rel="nofollow noopener" className="hover:text-gray-900">Own It Social</a>
           </p>
         </div>
       </footer>

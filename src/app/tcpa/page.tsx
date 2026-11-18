@@ -405,6 +405,8 @@ export default function TcpaHome() {
             </div>
             <p className="text-xs text-gray-400">
               &copy; {new Date().getFullYear()} Lindner Law Group. All rights reserved. This is attorney advertising and not legal advice. Estimates are not a guarantee of recovery.
+              {" "}Designed by{" "}
+              <a href="https://ownitsocial.com" target="_blank" rel="nofollow noopener" className="hover:text-gray-900">Own It Social</a>
             </p>
           </div>
         </div>

@@ -410,6 +410,8 @@ export default function Home() {
             </div>
             <p className="text-xs text-gray-400">
               &copy; {new Date().getFullYear()} Call Cash. All rights reserved. This is not a loan. Cash advances are non-recourse and subject to underwriting. Estimates are not a guarantee of funding.
+              {" "}Designed by{" "}
+              <a href="https://ownitsocial.com" target="_blank" rel="nofollow noopener" className="hover:text-gray-900">Own It Social</a>
             </p>
           </div>
         </div>
